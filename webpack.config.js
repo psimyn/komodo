@@ -6,7 +6,7 @@ module.exports = [
   {
     context: path.resolve('dashmat'),
     entry: {
-      bundle: "./server/src/main.jsx"
+      bundle: "./server/src/main.js"
     },
     output: {
       filename: "[name].js",

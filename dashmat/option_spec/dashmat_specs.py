@@ -45,6 +45,10 @@ class Import(valid_string_spec):
             raise BadSpecValue("Couldnt find class", val=val, meta=meta)
 
 
+class Slug(valid_string_spec):
+    validators = [regexed('^[a-z][-a-z0-9]*$')]
+
+
 class DashboardWidget(dictobj.Spec):
     type = dictobj.Field(
         String
@@ -86,7 +90,7 @@ class Check(dictobj.Spec):
 
 class ConfigRoot(dictobj.Spec):
     dashboards = dictobj.Field(
-        Dict(String(), Dashboard.FieldSpec(formatter=MergedOptionStringFormatter))
+        Dict(Slug(), Dashboard.FieldSpec(formatter=MergedOptionStringFormatter))
         , wrapper = required
     )
 

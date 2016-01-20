@@ -94,6 +94,17 @@ class Server(object):
         def get_data():
             return flask.jsonify(self.datastore.get_all())
 
+        @app.route("/", methods=['GET'])
+        def index():
+            props = {
+                'dashboards': [
+                    {"description": dashboard.description, "slug": slug}
+                    for slug, dashboard in self.dashboards.iteritems()
+                ],
+            }
+
+            return render_template('index.html', props=props, title="Welcome")
+
         @app.route("/<name>", methods=["GET"])
         def dashboard(name):
             if name not in self.dashboards:
@@ -110,4 +121,4 @@ class Server(object):
                 widget.type for widget in dashboard['widgets']
             ])
 
-            return render_template('index.html', props=props, title=dashboard['description'], widgets=widgets)
+            return render_template('dashboard.html', props=props, title=dashboard['description'], widgets=widgets)

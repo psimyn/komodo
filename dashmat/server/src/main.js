@@ -1,11 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Dashboard} from './Dashboard.jsx';
+import {Index} from './Index.jsx';
 import WidgetBox from './WidgetBox.jsx';
 
 // Bootstrap function for browser
-export default function bootstrap(config) {
-  const element = React.createElement(Dashboard, config);
+export function dashboard(props) {
+  const element = React.createElement(Dashboard, props);
+  ReactDOM.render(element, document.getElementById('page-content'));
+}
+
+export function index(props) {
+  const element = React.createElement(Index, props);
   ReactDOM.render(element, document.getElementById('page-content'));
 }
 
