@@ -1,15 +1,11 @@
 *.pyc
 *~
-compiled_static/
-compiled_prep/
 data.json
 .ropeproject/
 *.egg-info/
 dist/
-.tox/
-docs/sphinx/_build
-docs/sphinx/venv
 /.idea
 /node_modules/
-js-build/
+/dashmat/server/static/bundle.js
+/dashmat/widgets/bundles/*.js
 /dashmat.yml
