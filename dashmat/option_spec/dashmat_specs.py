@@ -4,6 +4,7 @@ Here we define the yaml specification for dashmat options
 The specifications are responsible for sanitation, validation and normalisation.
 """
 from input_algorithms.errors import BadSpecValue
+from input_algorithms.meta import Meta
 from input_algorithms.validators import regexed
 from input_algorithms.spec_base import valid_string_spec, required, dictionary_spec
 from input_algorithms.spec_base import string_spec as String, listof as List, dictof as Dict
@@ -44,6 +45,14 @@ class Import(valid_string_spec):
         except AttributeError:
             raise BadSpecValue("Couldnt find class", val=val, meta=meta)
 
+class ClassList(List):
+    def normalise_filled(self, meta, val):
+        # Do list_of stuff
+        val = super(ClassList, self).normalise_filled(meta, val)
+
+        # Now convert it to a dict of {kls.__name__: kls}
+        return {kls.__name__: kls for kls in val}
+
 
 class Slug(valid_string_spec):
     validators = [regexed('^[a-z][-a-z0-9]*$')]
@@ -61,6 +70,11 @@ class DashboardWidget(dictobj.Spec):
     options = dictobj.Field(
         dictionary_spec
     )
+
+    def validate(self, installed_widgets, meta):
+        if not self.type in installed_widgets:
+            raise BadSpecValue("Widget '{}' not installed".format(self.type), meta=meta)
+
 
 
 class Dashboard(dictobj.Spec):
@@ -104,6 +118,11 @@ class ConfigRoot(dictobj.Spec):
     )
 
     installed_widgets = dictobj.Field(
-        List(Import(Widget))
+        ClassList(Import(Widget))
         , wrapper = required
     )
+
+    def validate_widgets(self):
+        for name, dashboard in self.dashboards.iteritems():
+            for widget in dashboard['widgets']:
+                widget.validate(self.installed_widgets, Meta(None, path=['dashboards', name, ]))

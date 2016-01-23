@@ -30,6 +30,7 @@ class App(DelfickApp):
         # Validate the structure of the config file
         spec = ConfigRoot.FieldSpec()
         config = spec.normalise(Meta(everything=raw_config, path=[]), raw_config)
+        config.validate_widgets()
 
         datastore = JsonDataStore(os.path.join(os.path.dirname(cli_args.config_file.name), "data.json"))
         # if cli_args.redis_host:

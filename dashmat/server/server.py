@@ -53,14 +53,14 @@ class Server(object):
 
     def prepare_widgets(self, installed_widgets):
         """
-        Transform the installed widgets into a lookup dict based on the class name.
+        Instantiates the classes
 
-        :param installed_widgets: Array of classes
+        :param installed_widgets: Dict of {name: class}
         :return: Dict of {name: instance}
         """
         result = {}
-        for WidgetKls in installed_widgets:
-            result[WidgetKls.__name__] = WidgetKls()
+        for name, WidgetKls in installed_widgets.iteritems():
+            result[name] = WidgetKls()
         return result
 
     @property
