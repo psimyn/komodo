@@ -30,5 +30,5 @@ class RandomStatus(CheckBase):
                 'title': 'Status {}'.format(i+11),
                 'value': random.randint(0, 60),
             }
-            for i in range(12)
+            for i in range(8)
         ]

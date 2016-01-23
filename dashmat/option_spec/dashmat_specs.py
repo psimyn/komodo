@@ -58,6 +58,10 @@ class DashboardWidget(dictobj.Spec):
         String
     )
 
+    options = dictobj.Field(
+        dictionary_spec
+    )
+
 
 class Dashboard(dictobj.Spec):
     description = dictobj.Field(

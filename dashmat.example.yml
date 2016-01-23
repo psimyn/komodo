@@ -17,6 +17,8 @@ dashboards:
          data: random.number
        - type: Number
          data: random.number
+         options:
+           title: thing
 
 checks:
   random:

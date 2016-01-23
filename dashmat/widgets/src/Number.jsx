@@ -6,7 +6,7 @@ export class Number extends Component {
   render() {
     return (
       <WidgetBox className={styles.container}>
-        <h1 className={styles.heading}>{this.props.title}</h1>
+        <h1 className={styles.heading}>{this.props.options.title}</h1>
         <span className={styles.value}>{this.props.data}</span>
       </WidgetBox>
     );
@@ -15,5 +15,7 @@ export class Number extends Component {
 
 Number.propTypes = {
   data: PropTypes.number,
-  title: PropTypes.string,
+  options: PropTypes.shape({
+    title: PropTypes.string,
+  }),
 };

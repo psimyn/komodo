@@ -53,7 +53,7 @@ export class Dashboard extends Component {
       if (widget.data) {
         data = digattr(this.state.data, widget.data);
       }
-      return (<Widget key={idx} data={data} />);
+      return (<Widget key={idx} data={data} options={widget.options || {}} />);
     });
     return (
       <div className={styles.dashboard}>
@@ -68,6 +68,7 @@ Dashboard.propTypes = {
     PropTypes.shape({
       type: PropTypes.string.isRequired,
       data: PropTypes.string,
+      options: PropTypes.object,
     })
   ).isRequired,
   data: PropTypes.object,
