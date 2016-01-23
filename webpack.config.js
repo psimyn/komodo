@@ -38,12 +38,12 @@ module.exports = [
   {
     context: path.resolve('dashmat'),
     entry: {
-      Number: "./widgets/src/Number.jsx"
+      Number: "./widgets/src/Number.jsx",
     },
     output: {
       filename: "[name].js",
       path: "dashmat/widgets/bundles",
-      library: "widgets",
+      library: "widget_[name]",
       publicPath: "/static"
     },
     module: {
