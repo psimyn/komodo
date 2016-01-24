@@ -5,7 +5,13 @@ setup(
       name = "dashmat"
     , version = VERSION
     , packages = find_packages(exclude=['tests'])
-    , include_package_data = True
+    , package_data =
+      { 'dashmat.widgets': [ 'bundles/*.js' ]
+      , 'dashmat.server':
+        [ 'templates/*.html'
+        , 'static/*.js'
+        ]
+      }
 
     , install_requires =
       [ "six"
