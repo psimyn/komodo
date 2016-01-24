@@ -27,7 +27,7 @@ dashboards:
            threshold: 50
            prefix: $
        - type: Number
-         data: random.number
+         data: random.number2
        - type: Number
          data: random.number
          options:

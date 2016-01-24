@@ -9,6 +9,10 @@ class RandomNumbers(CheckBase):
 
     def every_minute(self, time):
         yield 'number', random.randint(1, 1000)
+        yield 'number2', {
+            'value': random.randint(1, 1000),
+            'last': random.randint(1, 1000)
+        }
         yield 'list', [random.randint(1, 1000) for _ in range(10)]
         yield 'float', round(random.random() * 1000, 2)
 

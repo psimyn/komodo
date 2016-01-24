@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: white;
 }
 
 .heading {
@@ -14,15 +15,19 @@
 }
 
 .value {
-  color: white;
   font-size: 55px;
   font-weight: bold;
   text-align: center;
   display: block;
 }
 
+.last {
+  display: block;
+  font-size: 35px;
+  text-align: center;
+}
+
 .last_updated {
-  color: white;
   position: absolute;
   bottom: 12px;
   text-align: center;
