@@ -1,0 +1,11 @@
+.widget {
+  flex-grow: 1;
+  background-color: #e67e22;
+  min-width: 370px;
+  max-width: 600px;
+  min-height: 340px;
+  margin: 5px;
+  padding: 0;
+  box-shadow: 5px 5px 5px -1px rgba(0,0,0,0.5);
+  position: relative;
+}

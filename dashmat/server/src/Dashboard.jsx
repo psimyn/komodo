@@ -1,7 +1,7 @@
 import styles from "./Dashboard.css";
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import WidgetBox from './WidgetBox.jsx';
+import WidgetBox from './components/WidgetBox.jsx';
 import {digattr} from './utils.js';
 
 class UnknownWidget extends Component {

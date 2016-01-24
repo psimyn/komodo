@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Dashboard} from './Dashboard.jsx';
 import {Index} from './Index.jsx';
-import WidgetBox from './WidgetBox.jsx';
+import WidgetBox from './components/WidgetBox.jsx';
 
 // Bootstrap function for browser
 export function dashboard(props) {
