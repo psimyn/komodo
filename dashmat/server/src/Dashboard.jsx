@@ -2,6 +2,7 @@ import styles from "./Dashboard.css";
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import WidgetBox from './components/WidgetBox.jsx';
+import {OfflineIndicator} from './components/OfflineIndicator.jsx';
 import {digattr} from './utils.js';
 
 class UnknownWidget extends Component {
@@ -22,14 +23,25 @@ UnknownWidget.propTypes = {
 export class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {data: props.data || {}};
+    this.state = {
+      data: props.data || {},
+      lastUpdated: new Date(),
+      error: false,
+    };
   }
   refresh() {
     fetch('/data.json')
       .then(data => data.json())
       .then(data => {
-        this.setState({data: data});
+        this.setState({
+          data: data,
+          error: false,
+          lastUpdated: new Date(),
+        });
       })
+      .catch(error => {
+        this.setState({error: true});
+      });
   }
   componentDidMount() {
     setInterval(this.refresh.bind(this), 2000);
@@ -70,6 +82,7 @@ export class Dashboard extends Component {
     });
     return (
       <div className={styles.dashboard}>
+        <OfflineIndicator lastUpdated={this.state.lastUpdated} error={this.state.error} />
         {widgets}
       </div>
     )

@@ -17,7 +17,6 @@ module.exports = [
     module: {
       loaders: [
         {
-          exclude: /node_modules/,
           loader: "babel",
           test: /\.jsx?$/,
           query: {
@@ -27,7 +26,11 @@ module.exports = [
         {
           test: /\.css$/,
           loader: "style!css?modules"
-        }
+        },
+        {
+          test: /\.svg$/,
+          loader: 'svg-inline'
+        },
       ]
     },
     plugins: [
@@ -60,7 +63,7 @@ module.exports = [
         {
           test: /\.css$/,
           loader: "style!css?modules"
-        }
+        },
       ]
     },
     externals: {
