@@ -8,10 +8,8 @@ from flask import render_template, abort
 from flask.helpers import send_file
 from flask import Flask
 
-import threading
 import logging
 import flask
-import time
 import os
 
 log = logging.getLogger("dashmat.server")

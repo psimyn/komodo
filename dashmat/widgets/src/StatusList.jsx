@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './StatusList.css';
-import {WidgetBox} from 'Dashing';
+import {WidgetBox} from 'Dashmat';
 
 
 export class StatusList extends Component {

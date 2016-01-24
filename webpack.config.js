@@ -11,7 +11,7 @@ module.exports = [
     output: {
       filename: "[name].js",
       path: "dashmat/server/static",
-      library: "Dashing",
+      library: "Dashmat",
       publicPath: "/static"
     },
     module: {
@@ -64,8 +64,8 @@ module.exports = [
       ]
     },
     externals: {
-      'Dashing': 'Dashing',
-      'react': "Dashing.React",
+      'Dashmat': 'Dashmat',
+      'react': "Dashmat.React",
     },
     plugins: [
       new webpack.NoErrorsPlugin()

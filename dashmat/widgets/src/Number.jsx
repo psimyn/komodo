@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './Number.css';
-import {WidgetBox} from 'Dashing';
+import {WidgetBox} from 'Dashmat';
 
 export class Number extends Component {
   render() {
