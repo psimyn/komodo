@@ -9,11 +9,6 @@
   padding: 0;
 }
 
-.unknown {
-  display: flex;
-  align-items: center;
-}
-
 body:global {
   background-color: #222222;
   font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;

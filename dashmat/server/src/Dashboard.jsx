@@ -1,23 +1,8 @@
-import styles from "./Dashboard.css";
 import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
-import WidgetBox from './components/WidgetBox.jsx';
+import styles from "./Dashboard.css";
 import {OfflineIndicator} from './components/OfflineIndicator.jsx';
+import {UnknownWidget} from './components/UnknownWidget.jsx';
 import {digattr} from './utils.js';
-
-class UnknownWidget extends Component {
-  render() {
-    return (
-      <WidgetBox className={styles.unknown} color="#C0392B">
-        Unknown widget&nbsp;{this.props.type}
-      </WidgetBox>
-    );
-  }
-}
-
-UnknownWidget.propTypes = {
-  type: PropTypes.string.isRequired,
-};
 
 
 export class Dashboard extends Component {
