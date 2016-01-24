@@ -4,34 +4,44 @@ This is where the mainline sits and is responsible for setting up the logging,
 the argument parsing and for starting up dashmat.
 """
 
-from dashmat.actions import available_actions
-from dashmat.collector import Collector
-from dashmat.errors import BadTask
+import os
+import yaml
+import logging
+import argparse
+
+from input_algorithms.meta import Meta
 
 from delfick_app import App as DelfickApp
-import logging
+
+from dashmat.datastore import JsonDataStore
+from dashmat.option_spec.dashmat_specs import ConfigRoot
+from dashmat.server.server import Server
 
 log = logging.getLogger("dashmat.executor")
+
 
 class App(DelfickApp):
     cli_categories = ['dashmat']
     cli_description = "Application that reads YAML and serves up pretty dashboards"
-    cli_environment_defaults = {"DASHMAT_CONFIG": ("--config", 'dashmat.yml')}
-    cli_positional_replacements = [('--task', 'list_tasks'), ('--artifact', "")]
 
     def execute(self, cli_args, args_dict, extra_args, logging_handler):
-        args_dict["dashmat"]["debug"] = cli_args.debug
+        raw_config = yaml.load(cli_args.config_file)
 
-        collector = Collector()
-        collector.prepare(args_dict["dashmat"]["config"], args_dict)
-        if hasattr(collector, "configuration") and "term_colors" in collector.configuration:
-            self.setup_logging_theme(logging_handler, colors=collector.configuration["term_colors"])
+        # Validate the structure of the config file
+        spec = ConfigRoot.FieldSpec()
+        config = spec.normalise(Meta(everything=raw_config, path=[]), raw_config)
 
-        task = cli_args.dashmat_chosen_task
-        if task not in available_actions:
-            raise BadTask("Unknown task", available=list(available_actions.keys()), wanted=task)
+        datastore = JsonDataStore(os.path.join(os.path.dirname(cli_args.config_file.name), "data.json"))
+        # if cli_args.redis_host:
+        #     datastore = RedisDataStore(redis.Redis(cli_args.redis_host))
 
-        available_actions[task](collector)
+        Server(
+              host = cli_args.host
+            , port = cli_args.port
+            , debug = cli_args.debug
+            , datastore=datastore
+            , **config
+            ).serve()
 
     def setup_other_logging(self, args, verbose=False, silent=False, debug=False):
         logging.getLogger("requests").setLevel([logging.CRITICAL, logging.ERROR][verbose or debug])
@@ -39,51 +49,22 @@ class App(DelfickApp):
     def specify_other_args(self, parser, defaults):
         parser.add_argument("--config"
             , help = "The config file to read"
-            , dest = "dashmat_config"
-            , **defaults["--config"]
-            )
-
-        parser.add_argument("--no-dynamic-dashboard-js"
-            , help = "Turn off transpiling the dashboard javascript at runtime"
-            , dest = "dashmat_dynamic_dashboard_js"
-            , action = "store_false"
-            )
-
-        parser.add_argument("--redis-host"
-            , help = "Redis host to store data in"
-            , dest = "dashmat_redis_host"
-            , default = ""
-            )
-
-        parser.add_argument("--task"
-            , help = "The task to run"
-            , dest = "dashmat_chosen_task"
-            , **defaults["--task"]
+            , dest = "config_file"
+            , type = argparse.FileType('rb')
+            , default = "dashmat.yml"
             )
 
         parser.add_argument("--host"
             , help = "The host to serve the dashboards on"
-            , dest = "dashmat_host"
+            , dest = "host"
             , default = "localhost"
             )
 
         parser.add_argument("--port"
             , help = "The port to serve the dashboards on"
             , default = 7546
-            , dest = "dashmat_port"
+            , dest = "port"
             , type = int
-            )
-
-        parser.add_argument("--artifact"
-            , help = "Extra argument to be used as decided by each task"
-            , dest = "dashmat_artifact"
-            , **defaults['--artifact']
-            )
-
-        parser.add_argument("--without-checks"
-            , help = "Don't run the cronned checks, useful for development"
-            , dest = "dashmat_without_checks"
-            , action = "store_true"
             )
 
         return parser

@@ -1,16 +1,15 @@
 <html>
 <head>
     <title>{{ title }}</title>
-    {% for extra_css in css %}
-    <link rel="stylesheet" type="text/css" href="{{ extra_css }}" >
+    <script src="/static/bundle.js"></script>
+    {% for widget in widgets %}
+    <script src="/static/widget/{{widget}}"></script>
     {% endfor %}
-    <script>
-        window.firstState = {{ first_state|safe }};
-    </script>
-    <script src="{{ dashboardjs }}"></script>
 </head>
 <body>
     <div id="page-content"></div>
+    <script>
+        Dashing.default({{props|tojson|safe}});
+    </script>
 </body>
 </html>
-

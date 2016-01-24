@@ -8,17 +8,14 @@ setup(
     , include_package_data = True
 
     , install_requires =
-      [ "docker-harpoon==0.6.6.8"
-
-      , "six"
-      , "redis"
+      [ "six"
       , "croniter"
       , "requests"
       , "slumber"
+      , "input_algorithms==0.4.5.4"
 
       , "Flask==0.10.1"
       , "tornado==4.3"
-      , "pyjade==3.1.0"
       , "pyYaml==3.10"
       ]
 

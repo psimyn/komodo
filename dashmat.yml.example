@@ -1,13 +1,16 @@
----
-
-modules:
-  components:
-    import_path: dashmat.core_modules.components.main:Components
+installed_widgets:
+  - dashmat.widgets:Number
 
 dashboards:
-  /number:
-    description: A number!
-    imports:
-      - [[Number], 'components']
-    layout:
-      <Number title="test" data={this.datasource("/data/components/number")} />
+  example:
+    widgets:
+       - type: Number
+         title: "Random statistic"
+         data: random.number
+       - type: Number
+         title: "Random float"
+         data: random.float
+
+checks:
+  random:
+    import_path: dashmat.core_modules.example:RandomNumbers

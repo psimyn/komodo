@@ -1,60 +1,44 @@
-import logging
-import json
 import os
+import json
+import logging
+from collections import defaultdict
 
-log = logging.getLogger("dashmat.datastore")
+log = logging.getLogger(__name__)
+
 
 class RedisDataStore(object):
-    def __init__(self, redis, prefix=""):
-        self.prefix = prefix
+    def __init__(self, redis):
         self.redis = redis
 
-    def prefixed(self, prefix):
-        return RedisDataStore(self.redis, prefix=prefix)
+    def create(self, prefix, key, value):
+        self.redis.set("checks-{0}-{1}".format(prefix, key), json.dumps(value))
 
-    def create(self, key, value):
-        self.redis.set("{0}-{1}".format(self.prefix, key), json.dumps({"value": value}))
+    def retrieve(self, prefix, key):
+        return json.loads(self.redis.get("checks-{0}-{1}".format(prefix, key)))
 
-    def retrieve(self, key):
-        return json.loads(self.redis.get("{0}-{1}".format(self.prefix, key)).decode('utf-8'))["value"]
 
 class JsonDataStore(object):
-    def __init__(self, location, prefix=""):
-        self.prefix = prefix
+    def __init__(self, location):
         self.location = location
+        self.data = defaultdict(dict)
+        self.data.update(self.load())
 
-    @property
-    def data(self):
+    def load(self):
         if not os.path.exists(self.location):
             return {}
 
-        last_read = getattr(self, "_data_last_read", None)
-        if last_read is None or os.stat(self.location).st_mtime > last_read:
-            try:
-                with open(self.location) as fle:
-                    self._data = json.loads(fle.read())
-                self._data_last_read = os.stat(self.location).st_mtime
-            except (OSError, TypeError, ValueError) as error:
-                log.error("Failed to read the data")
-                log.exception(error)
-                self._data = {}
+        with open(self.location, 'rb') as fle:
+            return json.load(fle)
 
-        return self._data
+    def save(self):
+        with open(self.location, 'wb') as fle:
+            return json.dump(fle, self.data)
 
-    def prefixed(self, prefix):
-        ret = JsonDataStore(self.location, prefix=prefix)
-        ret._data_last_read = getattr(self, "_data_last_read", None)
-        ret._data = getattr(self, "_data", None)
-        return ret
+    def set(self, prefix, key, value):
+        self.data[prefix][key] = value
 
-    def create(self, key, value):
-        data = self.data
-        data[key] = json.dumps({"value": value})
-        with open(self.location, 'w') as fle:
-            json.dump(data, fle)
+    def get(self, prefix, key):
+        return self.data[prefix].get(key, None)
 
-    def retrieve(self, key):
-        data = self.data
-        if key in data:
-            return json.loads(self.data[key])["value"]
-
+    def get_all(self):
+        return dict(self.data)
