@@ -39,6 +39,7 @@ module.exports = [
     context: path.resolve('dashmat'),
     entry: {
       Number: "./widgets/src/Number.jsx",
+      StatusList: "./widgets/src/StatusList.jsx",
     },
     output: {
       filename: "[name].js",

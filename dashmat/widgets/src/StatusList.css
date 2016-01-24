@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+}
+
+.status_item {
+  margin: 2px 0;
+  padding: 5px 20px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.status_title {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.value {
+  text-align: right;
+  flex-grow: 2;
+}

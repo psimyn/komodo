@@ -1,16 +1,25 @@
 installed_widgets:
   - dashmat.widgets:Number
+  - dashmat.widgets:StatusList
 
 dashboards:
   example:
     widgets:
        - type: Number
-         title: "Random statistic"
          data: random.number
        - type: Number
-         title: "Random float"
          data: random.float
+       - type: StatusList
+         data: statuses.status1
+       - type: StatusList
+         data: statuses.status2
+       - type: Number
+         data: random.number
+       - type: Number
+         data: random.number
 
 checks:
   random:
     import_path: dashmat.core_modules.example:RandomNumbers
+  statuses:
+    import_path: dashmat.core_modules.example:RandomStatus
