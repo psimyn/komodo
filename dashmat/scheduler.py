@@ -2,8 +2,12 @@ from croniter import croniter
 from threading import Thread
 import datetime
 import logging
+import time
 
-log = logging.getLogger("dashmat.scheduler")
+from dashmat.timezone import utc
+
+log = logging.getLogger(__name__)
+
 
 class Scheduler(Thread):
     daemon = True
@@ -23,6 +27,7 @@ class Scheduler(Thread):
 
             try:
                 self.twitch()
+                time.sleep(1)
             except Exception:
                 log.exception("Scheduler failed an iteration!")
 
@@ -31,7 +36,7 @@ class Scheduler(Thread):
             self.checks.append((cron, func, checker, name))
 
     def twitch(self):
-        now = datetime.datetime.now()
+        now = datetime.datetime.now(utc)
         for cron, func, _, name in self.checks:
             cron_key = "{0}_{1}".format(cron.replace(" ", "_").replace("/", "SLSH").replace("*", "STR"), func.__name__)
             iterable = croniter(cron, self.check_times.get(cron_key, now))
@@ -43,6 +48,7 @@ class Scheduler(Thread):
             try:
                 for key, value in func(now - self.check_times.get(cron_key, now)):
                     self.datastore.set(name, key, value)
+                    self.datastore.set(name, '_{}_time'.format(key), now.isoformat())
             except Exception:
                 log.exception("Error running a check %s.%s", name, func.__name__)
             finally:

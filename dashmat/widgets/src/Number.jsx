@@ -10,6 +10,7 @@ export class Number extends Component {
       <WidgetBox className={styles.container} color={options.backgroundColor}>
         <h1 className={styles.heading}>{options.title}</h1>
         <span className={styles.value}>{options.prefix}{data}{options.suffix}</span>
+        <small className={styles.last_updated}>Last updated {lastUpdated.toLocaleTimeString()}</small>
       </WidgetBox>
     );
   }
@@ -17,6 +18,7 @@ export class Number extends Component {
 
 Number.propTypes = {
   data: PropTypes.number,
+  lastUpdated: PropTypes.string,
   options: PropTypes.shape({
     title: PropTypes.string,
     suffix: PropTypes.string,

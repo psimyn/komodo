@@ -43,17 +43,30 @@ export class Dashboard extends Component {
     return window[attrName][name];
   }
 
+  lastUpdatedKey(dataKey) {
+    const parts = dataKey.split('.', 2);
+    return `${parts[0]}._${parts[1]}_time`;
+  }
+
   render() {
     const widgets = this.props.widgets.map((widget, idx) => {
       const Widget = this.loadWidget(widget.type);
       if (!Widget) {
         return (<UnknownWidget key={idx} type={widget.type}/>);
       }
-      let data = null;
+      let data = null, lastUpdated = null;
       if (widget.data) {
         data = digattr(this.state.data, widget.data);
+        lastUpdated = digattr(this.state.data, this.lastUpdatedKey(widget.data));
       }
-      return (<Widget key={idx} data={data} options={widget.options || {}} />);
+      return (
+        <Widget
+          key={idx}
+          data={data}
+          lastUpdated={lastUpdated}
+          options={widget.options || {}}
+          />
+      );
     });
     return (
       <div className={styles.dashboard}>
