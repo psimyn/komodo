@@ -6,10 +6,25 @@ import {WidgetBox} from 'Dashing';
 export class StatusList extends Component {
 
   color(entry) {
-    if (entry.status) {
-      return '#2ecc71';
+    if (entry.status != undefined) {
+      if (entry.status) {
+        return '#2ecc71';
+      }
+    } else if (this.props.options.threshold) {
+      if (entry.value < this.props.options.threshold) {
+        return '#2ecc71';
+      }
     }
     return '#e74c3c';
+  }
+
+  renderTitle() {
+    if (!this.props.options.title) {
+      return null;
+    }
+    return (
+      <div className={styles.title}><h2>{this.props.options.title}</h2></div>
+    );
   }
 
   render() {
@@ -21,12 +36,13 @@ export class StatusList extends Component {
       return (
         <div key={entry.title} className={styles.status_item} style={style}>
           <h2 className={styles.status_title}>{entry.title}</h2>
-          <span className={styles.value}>{entry.value}</span>
+          <span className={styles.value}>{this.props.options.prefix}{entry.value}{this.props.options.suffix}</span>
         </div>
       );
     });
     return (
       <WidgetBox className={styles.container}>
+        {this.renderTitle()}
         {statuses}
       </WidgetBox>
     )
@@ -45,6 +61,13 @@ StatusList.propTypes = {
     threshold: PropTypes.number,
     title: PropTypes.string,
     suffix: PropTypes.string,
-    isTime: PropTypes.bool,
+    prefix: PropTypes.string,
   }),
+};
+
+StatusList.defaultProps = {
+  options: {
+    suffix: '',
+    prefix: '',
+  }
 };

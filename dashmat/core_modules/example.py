@@ -20,7 +20,7 @@ class RandomStatus(CheckBase):
         yield 'status1', [
             {
                 'title': 'Status {}'.format(i+1),
-                'value': '{} mins'.format(random.randint(0, 60)),
+                'value': random.randint(0, 60),
                 'status': random.choice([True, True, True, False])
             }
             for i in range(5)

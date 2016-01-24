@@ -12,6 +12,7 @@
   flex-grow: 1;
   display: flex;
   align-items: center;
+  transition: background-color 1s linear;
 }
 
 .status_title {
@@ -23,4 +24,13 @@
 .value {
   text-align: right;
   flex-grow: 2;
+}
+
+.title {
+  text-align: center;
+  flex-grow: 0;
+}
+
+.title h2 {
+  margin: 5px;
 }

@@ -7,12 +7,25 @@ dashboards:
     widgets:
        - type: Number
          data: random.number
+         options:
+           title: Users
+           backgroundColor: "#8e44ad"
        - type: Number
          data: random.float
+         options:
+           title: Revenue
+           prefix: $
+           backgroundColor: "#3498db"
        - type: StatusList
          data: statuses.status1
+         options:
+           title: Test
+           suffix: " ms"
        - type: StatusList
          data: statuses.status2
+         options:
+           threshold: 50
+           prefix: $
        - type: Number
          data: random.number
        - type: Number
