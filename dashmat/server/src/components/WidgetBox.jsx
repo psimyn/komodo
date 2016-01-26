@@ -15,7 +15,10 @@ export default class WidgetBox extends Component {
 }
 
 WidgetBox.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.element,
+  ]),
   color: PropTypes.string,
   className: PropTypes.string,
 };
