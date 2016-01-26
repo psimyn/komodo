@@ -16,4 +16,4 @@ export function index(props) {
 }
 
 // Expose to other modules
-export {WidgetBox as WidgetBox, React as React};
+export {WidgetBox as WidgetBox, React as React, ReactDOM as ReactDOM};

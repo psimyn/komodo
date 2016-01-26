@@ -10,3 +10,7 @@ class Number(Widget):
 class StatusList(Widget):
     def get_bundle(self):
         return pkg_resources.resource_stream('dashmat.widgets', 'bundles/StatusList.js')
+
+class Graph(Widget):
+    def get_bundle(self):
+        return pkg_resources.resource_stream('dashmat.widgets', 'bundles/Graph.js')

@@ -43,6 +43,7 @@ module.exports = [
     entry: {
       Number: "./widgets/src/Number.jsx",
       StatusList: "./widgets/src/StatusList.jsx",
+      Graph: "./widgets/src/Graph.jsx",
     },
     output: {
       filename: "[name].js",
@@ -61,6 +62,7 @@ module.exports = [
           }
         },
         {
+          exclude: /node_modules/,
           test: /\.css$/,
           loader: "style!css?modules"
         },
@@ -69,6 +71,7 @@ module.exports = [
     externals: {
       'Dashmat': 'Dashmat',
       'react': "Dashmat.React",
+      'react-dom': 'Dashmat.ReactDOM',
     },
     plugins: [
       new webpack.NoErrorsPlugin()

@@ -15,6 +15,10 @@ class RandomNumbers(CheckBase):
         }
         yield 'list', [random.randint(1, 1000) for _ in range(10)]
         yield 'float', round(random.random() * 1000, 2)
+        yield 'graph', [
+            { 'data': [{'x': i, 'y': random.randint(1, 100)} for i in range(10)] },
+            { 'data': [{'x': i, 'y': random.randint(1, 100)} for i in range(10)] },
+        ]
 
 class RandomStatus(CheckBase):
     def register_checks(self):

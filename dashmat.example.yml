@@ -1,6 +1,7 @@
 installed_widgets:
   - dashmat.widgets:Number
   - dashmat.widgets:StatusList
+  - dashmat.widgets:Graph
 
 dashboards:
   example:
@@ -28,8 +29,8 @@ dashboards:
            prefix: $
        - type: Number
          data: random.number2
-       - type: Number
-         data: random.number
+       - type: Graph
+         data: random.graph
          options:
            title: thing
 
