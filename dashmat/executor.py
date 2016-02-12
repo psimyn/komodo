@@ -52,7 +52,7 @@ class App(DelfickApp):
             , help = "The config file to read"
             , dest = "config_file"
             , type = argparse.FileType('rb')
-            , default = "dashmat.yml"
+            , required = True
             )
 
         parser.add_argument("--host"
