@@ -53,6 +53,7 @@ export class Graph extends Component {
 
 Graph.propTypes = {
   data: PropTypes.shape({
+    value: PropTypes.string,
     labels: PropTypes.array,
     series: PropTypes.array.isRequired,
   }),
