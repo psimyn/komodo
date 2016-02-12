@@ -41,7 +41,10 @@ export class Graph extends Component {
 
     return (
       <WidgetBox className={styles.container} color={options.backgroundColor || '#2c3e50'}>
-        <div className={styles.title}>{options.title}</div>
+        <div className={styles.text}>
+          <div className={styles.title}>{options.title}</div>
+          <div className={styles.value}>{data.value}</div>
+        </div>
         <ChartistGraph className="ct-octave" data={data} options={chartConfig} type="Line" />
       </WidgetBox>
     );
