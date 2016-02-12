@@ -44,6 +44,7 @@ module.exports = [
       Number: "./widgets/src/Number.jsx",
       StatusList: "./widgets/src/StatusList.jsx",
       Graph: "./widgets/src/Graph.jsx",
+      Gauge: "./widgets/src/Gauge.jsx",
     },
     output: {
       filename: "[name].js",

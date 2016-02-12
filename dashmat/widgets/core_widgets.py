@@ -14,3 +14,7 @@ class StatusList(Widget):
 class Graph(Widget):
     def get_bundle(self):
         return pkg_resources.resource_stream('dashmat.widgets', 'bundles/Graph.js')
+
+class Gauge(Widget):
+    def get_bundle(self):
+        return pkg_resources.resource_stream('dashmat.widgets', 'bundles/Gauge.js')

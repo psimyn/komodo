@@ -1,0 +1,49 @@
+
+.container {
+  /* Make the content in the middle */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+
+.heading {
+  font-size: 38px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+.value {
+  font-size: 55px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  width: 100%;
+}
+
+.last {
+  display: block;
+  font-size: 35px;
+  text-align: center;
+}
+
+.last_updated {
+  position: absolute;
+  bottom: 12px;
+  text-align: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+:global(.ct-series-a .ct-slice-donut) {
+  stroke: white;
+}
+
+:global(.ct-series-b  .ct-slice-donut) {
+  stroke: rgba(22, 22, 22, 0.4);
+}

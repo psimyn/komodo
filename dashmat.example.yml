@@ -2,11 +2,12 @@ installed_widgets:
   - dashmat.widgets:Number
   - dashmat.widgets:StatusList
   - dashmat.widgets:Graph
+  - dashmat.widgets:Gauge
 
 dashboards:
   example:
     widgets:
-       - type: Number
+       - type: Gauge
          data: random.number
          options:
            title: Users
