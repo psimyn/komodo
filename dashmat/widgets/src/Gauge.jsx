@@ -6,8 +6,11 @@ import Chartist from 'chartist';
 
 export class Gauge extends Component {
   render() {
-    const {options, value} = this.props
+    const {options, data} = this.props
+
     const max = options.max || 100
+    const value = data
+
     const lastUpdated = new Date(this.props.lastUpdated)
 
     const chartConfig = {
@@ -22,14 +25,15 @@ export class Gauge extends Component {
       width: 400,
     }
 
-    const data = {
-      series: [value, max - value]
+    const val = Math.min(value, max)
+    const dataset = {
+      series: [val, max - val]
     }
 
     return (
       <WidgetBox className={styles.container} color={options.backgroundColor}>
         <h1 className={styles.heading}>{options.title}</h1>
-        <ChartistGraph className="ct-octave" data={data} options={chartConfig} type="Pie" />
+        <ChartistGraph className="ct-octave" data={dataset} options={chartConfig} type="Pie" />
         <span className={styles.value}>{options.prefix}{value}{options.suffix}</span>
         <small className={styles.last_updated}>Last updated {lastUpdated.toLocaleTimeString()}</small>
       </WidgetBox>
@@ -38,7 +42,7 @@ export class Gauge extends Component {
 }
 
 Gauge.propTypes = {
-  value: PropTypes.number,
+  data: PropTypes.number,
   lastUpdated: PropTypes.string,
   options: PropTypes.shape({
     title: PropTypes.string,
@@ -48,7 +52,7 @@ Gauge.propTypes = {
 };
 
 Gauge.defaultProps = {
-  value: 0,
+  data: 0,
   options: {
     max: 100,
   },

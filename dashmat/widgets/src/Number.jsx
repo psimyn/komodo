@@ -5,7 +5,7 @@ import {WidgetBox} from 'Dashmat';
 
 export class Number extends Component {
   render() {
-    const {options, title, data} = this.props;
+    const {options, data} = this.props;
     const lastUpdated = new Date(this.props.lastUpdated);
     let value = null, last = null;
     if (typeof data == 'object') {
