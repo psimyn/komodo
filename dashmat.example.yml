@@ -11,7 +11,8 @@ dashboards:
          data: random.number
          options:
            title: Users
-           backgroundColor: "#8e44ad"
+           max: 1000
+           threshold: 300
        - type: Number
          data: random.float
          options:
