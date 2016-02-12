@@ -15,13 +15,9 @@ export class Graph extends Component {
 
   render() {
     const {options, data} = this.props;
-    const chartData = {
-      series: data,
-    };
 
     const chartConfig = {
       axisX: {
-        type: Chartist.AutoScaleAxis,
         showGrid: false,
         showLabel: false,
         offset: 0,
@@ -45,20 +41,18 @@ export class Graph extends Component {
 
     return (
       <WidgetBox className={styles.container} color={options.backgroundColor || '#2c3e50'}>
-        <div>{options.title}</div>
-        <ChartistGraph data={chartData} options={chartConfig} type="Line" />
+        <div className={styles.title}>{options.title}</div>
+        <ChartistGraph className="ct-octave" data={data} options={chartConfig} type="Line" />
       </WidgetBox>
     );
   }
 }
 
 Graph.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      data: PropTypes.array.isRequired,
-    })
-  ),
+  data: PropTypes.shape({
+    labels: PropTypes.array,
+    series: PropTypes.array.isRequired,
+  }),
   options: PropTypes.shape({
     title: PropTypes.string,
     backgroundColor: PropTypes.string,

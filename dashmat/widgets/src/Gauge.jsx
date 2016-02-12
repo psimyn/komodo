@@ -22,8 +22,7 @@ export class Gauge extends Component {
       donutWidth: 30,
       startAngle: 225,
       total: max * 1.33,
-      showLabel: false,
-      width: 400,
+      showLabel: false
     }
 
     const val = Math.min(value, max)
