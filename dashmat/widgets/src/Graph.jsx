@@ -23,15 +23,18 @@ export class Graph extends Component {
       axisX: {
         type: Chartist.AutoScaleAxis,
         showGrid: false,
+        showLabel: false,
         offset: 0,
       },
       axisY: {
         showGrid: true,
+        showLabel: false,
         offset: 0,
       },
       height: 340,
       showPoint: false,
       showArea: true,
+      fullWidth: true,
       chartPadding: {
         top: 0,
         right: 0,
@@ -42,6 +45,7 @@ export class Graph extends Component {
 
     return (
       <WidgetBox className={styles.container} color={options.backgroundColor || '#2c3e50'}>
+        <div>{options.title}</div>
         <ChartistGraph data={chartData} options={chartConfig} type="Line" />
       </WidgetBox>
     );

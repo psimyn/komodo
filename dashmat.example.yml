@@ -33,6 +33,13 @@ dashboards:
          data: random.graph
          options:
            title: thing
+  graph:
+    widgets:
+      - type: Graph
+        data: random.graph
+        options:
+          title: aaa
+
 
 checks:
   random:
