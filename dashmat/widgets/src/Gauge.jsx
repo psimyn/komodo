@@ -11,7 +11,7 @@ export class Gauge extends Component {
     const max = options.max || 100
     const value = data
 
-    const lastUpdated = new Date(this.props.lastUpdated)
+    const lastUpdated = this.props.lastUpdated ? new Date(this.props.lastUpdated) : null
 
     const chartConfig = {
       labelInterpolationFnc: function(value) {
@@ -30,14 +30,17 @@ export class Gauge extends Component {
       series: [val, max - val]
     }
 
-    const backgroundColor = value < options.threshold ? '#2ecc71' : '#e74c3c'
+    const backgroundColor = value < options.threshold ? '#1d8147' : '#e74c3c'
 
     return (
       <WidgetBox className={styles.container} color={backgroundColor}>
         <h1 className={styles.heading}>{options.title}</h1>
         <ChartistGraph className="ct-octave" data={dataset} options={chartConfig} type="Pie" />
         <span className={styles.value}>{options.prefix}{value}{options.suffix}</span>
-        <small className={styles.last_updated}>Last updated {lastUpdated.toLocaleTimeString()}</small>
+        { lastUpdated
+          ? <small className={styles.last_updated}>Last updated {lastUpdated.toLocaleTimeString()}</small>
+          : null
+        }
       </WidgetBox>
     );
   }
