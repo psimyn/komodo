@@ -19,6 +19,8 @@ setup(
       , "requests"
       , "slumber"
       , "input_algorithms==0.4.5.4"
+      , "delfick_app==0.7.3"
+      , "option-merge==0.9.9.4"
 
       , "Flask==0.10.1"
       , "tornado==4.3"
