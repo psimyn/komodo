@@ -17,6 +17,7 @@ export class Gauge extends Component {
       labelInterpolationFnc: function(value) {
         return value
       },
+      fullWidth: true,
       donut: true,
       donutWidth: 30,
       startAngle: 225,
@@ -48,7 +49,7 @@ Gauge.propTypes = {
   lastUpdated: PropTypes.string,
   options: PropTypes.shape({
     title: PropTypes.string,
-    backgroundColor: PropTypes.string,
+    threshold: PropTypes.number,
     max: PropTypes.number,
   }),
 };
