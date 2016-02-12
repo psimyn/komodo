@@ -13,6 +13,7 @@ Dev Setup
 
 ```
 pip install -e .
-DASHMAT_CONFIG=dashmat.yml.example dashmat run_checks
-DASHMAT_CONFIG=dashmat.yml.example dashmat serve
+npm install
+npm run build
+dashmat --config example.yml.example
 ```
