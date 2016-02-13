@@ -39,6 +39,17 @@ export class Graph extends Component {
       },
     };
 
+    if (!data) {
+      return (
+        <WidgetBox className={styles.container} color={options.backgroundColor || '#2c3e50'}>
+          <div className={styles.text}>
+            <div className={styles.title}>{options.title}</div>
+            <div className={styles.value}>No data</div>
+          </div>
+        </WidgetBox>
+      );
+    }
+
     return (
       <WidgetBox className={styles.container} color={options.backgroundColor || '#2c3e50'}>
         <div className={styles.text}>
