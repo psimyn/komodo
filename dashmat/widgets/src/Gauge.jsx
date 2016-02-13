@@ -6,9 +6,8 @@ import styles from './Gauge.css';
 
 export class Gauge extends Component {
   render() {
-    const {options, data} = this.props
+    const {max, threshold, title, prefix, suffix, data} = this.props
 
-    const max = options.max || 100
     const value = data
 
     const lastUpdated = this.props.lastUpdated ? new Date(this.props.lastUpdated) : null
@@ -30,13 +29,13 @@ export class Gauge extends Component {
       series: [val, max - val]
     }
 
-    const backgroundColor = value < options.threshold ? '#1d8147' : '#e74c3c'
+    const backgroundColor = value < threshold ? '#1d8147' : '#e74c3c'
 
     return (
       <WidgetBox className={styles.container} color={backgroundColor}>
-        <h1 className={styles.heading}>{options.title}</h1>
+        <h1 className={styles.heading}>{title}</h1>
         <ChartistGraph className="ct-octave" data={dataset} options={chartConfig} type="Pie" />
-        <span className={styles.value}>{options.prefix}{value}{options.suffix}</span>
+        <span className={styles.value}>{prefix}{value}{suffix}</span>
         { lastUpdated
           ? <small className={styles.last_updated}>Last updated {lastUpdated.toLocaleTimeString()}</small>
           : null
@@ -49,17 +48,17 @@ export class Gauge extends Component {
 Gauge.propTypes = {
   data: PropTypes.number,
   lastUpdated: PropTypes.string,
-  options: PropTypes.shape({
-    title: PropTypes.string,
-    threshold: PropTypes.number,
-    max: PropTypes.number,
-  }),
+  title: PropTypes.string,
+  threshold: PropTypes.number,
+  max: PropTypes.number,
+  prefix: PropTypes.string,
+  suffix: PropTypes.string,
 };
 
 Gauge.defaultProps = {
   data: 0,
-  options: {
-    max: 100,
-    threshold: 50
-  },
+  max: 100,
+  threshold: 50,
+  prefix: '',
+  suffix: '',
 };

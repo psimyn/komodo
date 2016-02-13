@@ -8,22 +8,22 @@ export class StatusList extends Component {
   color(entry) {
     if (entry.status != undefined) {
       if (entry.status) {
-        return '#2ecc71';
+        return '#1d8147';
       }
-    } else if (this.props.options.threshold) {
-      if (entry.value < this.props.options.threshold) {
-        return '#2ecc71';
+    } else if (this.props.threshold) {
+      if (entry.value < this.props.threshold) {
+        return '#1d8147';
       }
     }
     return '#e74c3c';
   }
 
   renderTitle() {
-    if (!this.props.options.title) {
+    if (!this.props.title) {
       return null;
     }
     return (
-      <div className={styles.title}><h2>{this.props.options.title}</h2></div>
+      <div className={styles.title}><h2>{this.props.title}</h2></div>
     );
   }
 
@@ -36,7 +36,7 @@ export class StatusList extends Component {
       return (
         <div key={entry.title} className={styles.status_item} style={style}>
           <h2 className={styles.status_title}>{entry.title}</h2>
-          <span className={styles.value}>{this.props.options.prefix}{entry.value}{this.props.options.suffix}</span>
+          <span className={styles.value}>{this.props.prefix}{entry.value}{this.props.suffix}</span>
         </div>
       );
     });
@@ -57,17 +57,13 @@ StatusList.propTypes = {
       status: PropTypes.bool,
     }).isRequired
   ),
-  options: PropTypes.shape({
-    threshold: PropTypes.number,
-    title: PropTypes.string,
-    suffix: PropTypes.string,
-    prefix: PropTypes.string,
-  }),
+  threshold: PropTypes.number,
+  title: PropTypes.string,
+  suffix: PropTypes.string,
+  prefix: PropTypes.string,
 };
 
 StatusList.defaultProps = {
-  options: {
-    suffix: '',
-    prefix: '',
-  }
+  suffix: '',
+  prefix: '',
 };

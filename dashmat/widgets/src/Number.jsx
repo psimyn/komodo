@@ -5,7 +5,7 @@ import {WidgetBox} from 'Dashmat';
 
 export class Number extends Component {
   render() {
-    const {options, data} = this.props;
+    const {backgroundColor, title, suffix, prefix, data} = this.props;
     const lastUpdated = new Date(this.props.lastUpdated);
     let value = null, last = null;
     if (typeof data == 'object') {
@@ -21,9 +21,9 @@ export class Number extends Component {
       value = data;
     }
     return (
-      <WidgetBox className={styles.container} color={options.backgroundColor}>
-        <h1 className={styles.heading}>{options.title}</h1>
-        <span className={styles.value}>{options.prefix}{value}{options.suffix}</span>
+      <WidgetBox className={styles.container} color={backgroundColor}>
+        <h1 className={styles.heading}>{title}</h1>
+        <span className={styles.value}>{prefix}{value}{suffix}</span>
         {last}
         <small className={styles.last_updated}>Last updated {lastUpdated.toLocaleTimeString()}</small>
       </WidgetBox>
@@ -40,17 +40,13 @@ Number.propTypes = {
     }),
   ]),
   lastUpdated: PropTypes.string,
-  options: PropTypes.shape({
-    title: PropTypes.string,
-    suffix: PropTypes.string,
-    prefix: PropTypes.string,
-    backgroundColor: PropTypes.string,
-  }),
+  title: PropTypes.string,
+  suffix: PropTypes.string,
+  prefix: PropTypes.string,
+  backgroundColor: PropTypes.string,
 };
 
 Number.defaultProps = {
-  options: {
-    prefix: '',
-    suffix: '',
-  },
+  prefix: '',
+  suffix: '',
 };

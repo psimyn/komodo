@@ -61,7 +61,7 @@ export class Dashboard extends Component {
           key={idx}
           data={data}
           lastUpdated={lastUpdated}
-          options={widget.options || {}}
+          {...widget.options || {}}
           />
       );
     });

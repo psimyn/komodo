@@ -14,7 +14,7 @@ export class Graph extends Component {
   }
 
   render() {
-    const {options, data} = this.props;
+    const {area, backgroundColor, suffix, title, data} = this.props;
 
     const chartConfig = {
       axisX: {
@@ -29,7 +29,7 @@ export class Graph extends Component {
       },
       height: 340,
       showPoint: false,
-      showArea: true,
+      showArea: area,
       fullWidth: true,
       chartPadding: {
         top: 0,
@@ -40,10 +40,11 @@ export class Graph extends Component {
     };
 
     if (!data) {
+      // Show "No data"
       return (
-        <WidgetBox className={styles.container} color={options.backgroundColor || '#2c3e50'}>
+        <WidgetBox className={styles.container} color={backgroundColor}>
           <div className={styles.text}>
-            <div className={styles.title}>{options.title}</div>
+            <div className={styles.title}>{title}</div>
             <div className={styles.value}>No data</div>
           </div>
         </WidgetBox>
@@ -51,10 +52,10 @@ export class Graph extends Component {
     }
 
     return (
-      <WidgetBox className={styles.container} color={options.backgroundColor || '#2c3e50'}>
+      <WidgetBox className={styles.container} color={backgroundColor}>
         <div className={styles.text}>
-          <div className={styles.title}>{options.title}</div>
-          <div className={styles.value}>{data.value}</div>
+          <div className={styles.title}>{title}</div>
+          <div className={styles.value}>{data.value}{suffix}</div>
         </div>
         <ChartistGraph className="ct-octave" data={data} options={chartConfig} type="Line" />
       </WidgetBox>
@@ -64,12 +65,19 @@ export class Graph extends Component {
 
 Graph.propTypes = {
   data: PropTypes.shape({
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     labels: PropTypes.array,
     series: PropTypes.array.isRequired,
   }),
-  options: PropTypes.shape({
-    title: PropTypes.string,
-    backgroundColor: PropTypes.string,
-  }),
+  title: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  suffix: PropTypes.string,
+  area: PropTypes.bool,
 };
+
+Graph.defaultProps = {
+  area: true,
+  suffix: '',
+  title: '',
+  backgroundColor: '#2c3e50',
+}
