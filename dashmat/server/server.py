@@ -14,7 +14,6 @@ import os
 
 log = logging.getLogger("dashmat.server")
 
-here = os.path.dirname(__file__)
 
 class Server(object):
     def __init__(self, host, port, debug, datastore, dashboards, checks, installed_widgets):
