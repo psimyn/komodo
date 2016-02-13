@@ -38,7 +38,7 @@ class Scheduler(Thread):
     def twitch(self):
         now = datetime.datetime.now(utc)
         for cron, func, _, name in self.checks:
-            cron_key = "{0}_{1}".format(cron.replace(" ", "_").replace("/", "SLSH").replace("*", "STR"), func.__name__)
+            cron_key = "{0}_{1}.{2}".format(cron.replace(" ", "_").replace("/", "SLSH").replace("*", "STR"), name, func.__name__)
             iterable = croniter(cron, self.check_times.get(cron_key, now))
             nxt = iterable.get_next(datetime.datetime)
             if nxt > now and cron_key in self.check_times:
