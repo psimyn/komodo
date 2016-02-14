@@ -18,3 +18,7 @@ class Graph(Widget):
 class Gauge(Widget):
     def get_bundle(self):
         return pkg_resources.resource_stream('dashmat.widgets', 'bundles/Gauge.js')
+
+class TimeSince(Widget):
+    def get_bundle(self):
+        return pkg_resources.resource_stream('dashmat.widgets', 'bundles/TimeSince.js')
