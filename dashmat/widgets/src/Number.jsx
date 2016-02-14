@@ -23,7 +23,6 @@ export class Number extends Component {
     }
 
     if (typeof threshold != 'undefined') {
-      console.log(threshold, value);
       backgroundColor = value < threshold ? '#1d8147' : '#e74c3c';
     }
     return (
