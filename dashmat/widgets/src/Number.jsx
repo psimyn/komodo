@@ -5,7 +5,8 @@ import {WidgetBox} from 'Dashmat';
 
 export class Number extends Component {
   render() {
-    const {backgroundColor, title, suffix, prefix, data} = this.props;
+    const {title, suffix, prefix, threshold, data} = this.props;
+    let backgroundColor = this.props.backgroundColor;
     const lastUpdated = new Date(this.props.lastUpdated);
     let value = null, last = null;
     if (typeof data == 'object') {
@@ -19,6 +20,11 @@ export class Number extends Component {
       }
     } else {
       value = data;
+    }
+
+    if (typeof threshold != 'undefined') {
+      console.log(threshold, value);
+      backgroundColor = value < threshold ? '#1d8147' : '#e74c3c';
     }
     return (
       <WidgetBox className={styles.container} color={backgroundColor}>
@@ -44,6 +50,7 @@ Number.propTypes = {
   suffix: PropTypes.string,
   prefix: PropTypes.string,
   backgroundColor: PropTypes.string,
+  threshold: PropTypes.number,
 };
 
 Number.defaultProps = {
