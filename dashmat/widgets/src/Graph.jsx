@@ -14,7 +14,7 @@ export class Graph extends Component {
   }
 
   render() {
-    const {area, backgroundColor, suffix, title, data} = this.props;
+    const {area, backgroundColor, suffix, title, min, max, data} = this.props;
 
     const chartConfig = {
       axisX: {
@@ -27,6 +27,8 @@ export class Graph extends Component {
         showLabel: false,
         offset: 0,
       },
+      low: min,
+      high: max,
       height: 340,
       showPoint: false,
       showArea: area,
@@ -73,6 +75,8 @@ Graph.propTypes = {
   backgroundColor: PropTypes.string,
   suffix: PropTypes.string,
   area: PropTypes.bool,
+  min: PropTypes.number,
+  max: PropTypes.number,
 };
 
 Graph.defaultProps = {
