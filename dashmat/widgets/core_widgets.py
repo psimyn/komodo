@@ -22,3 +22,7 @@ class Gauge(Widget):
 class TimeSince(Widget):
     def get_bundle(self):
         return pkg_resources.resource_stream('dashmat.widgets', 'bundles/TimeSince.js')
+
+class Countdown(Widget):
+    def get_bundle(self):
+        return pkg_resources.resource_stream('dashmat.widgets', 'bundles/Countdown.js')

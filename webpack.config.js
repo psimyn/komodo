@@ -46,6 +46,7 @@ module.exports = [
       Graph: "./widgets/src/Graph.jsx",
       Gauge: "./widgets/src/Gauge.jsx",
       TimeSince: "./widgets/src/TimeSince.jsx",
+      Countdown: "./widgets/src/Countdown.jsx",
     },
     output: {
       filename: "[name].js",
