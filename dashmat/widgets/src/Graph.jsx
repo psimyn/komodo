@@ -23,7 +23,7 @@ export class Graph extends Component {
         offset: 0,
       },
       axisY: {
-        showGrid: true,
+        showGrid: false,
         showLabel: false,
         offset: 0,
       },
@@ -53,17 +53,24 @@ export class Graph extends Component {
       );
     }
 
-    let chartClass = 'ct-octave'
+    let chartClass = 'ct-octave';
     if (stack) {
-      const zipped = data.series[0].map((series, i) => {
-        return data.series.map(array => array[i])
+      const zipped = data.series[0].data.map((series, i) => {
+        return data.series.map(array => array.data[i])
       });
 
-      data.series = data.series.map(series => series.map((val, i) => {
-        return zipped[i].filter((a, idx) => idx < i).reduce((a, b) => a + b, val)
-      }))
+      data.series = data.series.map(series => {
+        return {
+          name: series.name,
+          data: series.data.map((val, i) => {
+                  return zipped[i].filter((a, idx) => idx < i).reduce((a, b) => a + b, val)
+                })
+        };
+      });
 
-      chartConfig.high = Math.max(...data.series.map(series => Math.max(series)))
+      if (chartConfig.high == undefined) {
+        chartConfig.high = Math.max(...data.series.map(series => Math.max(series.data)));
+      }
       chartClass += ' ' + styles.stacked
     }
 
