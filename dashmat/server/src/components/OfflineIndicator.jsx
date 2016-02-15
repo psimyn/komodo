@@ -23,10 +23,6 @@ export class OfflineIndicator extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: this.props.color,
-    };
-    let className = styles.widget;
     if (this.props.error || this.state.offline) {
       return (
         <div className={styles.container}>

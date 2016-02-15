@@ -18,6 +18,7 @@ class Scheduler(Thread):
         self.checks = []
         self.finisher = {"finished": False}
         self.datastore = datastore
+        self.errors = {}
 
     def run(self):
         self.twitch()
@@ -38,7 +39,7 @@ class Scheduler(Thread):
     def twitch(self):
         now = datetime.datetime.now(utc)
         for cron, func, _, name in self.checks:
-            cron_key = "{0}_{1}.{2}".format(cron.replace(" ", "_").replace("/", "SLSH").replace("*", "STR"), name, func.__name__)
+            cron_key = "{0}.{1}".format(name, func.__name__)
             iterable = croniter(cron, self.check_times.get(cron_key, now))
             nxt = iterable.get_next(datetime.datetime)
             if nxt > now and cron_key in self.check_times:
@@ -48,8 +49,18 @@ class Scheduler(Thread):
             try:
                 for key, value in func(now - self.check_times.get(cron_key, now)):
                     self.datastore.set(name, key, value)
-                    self.datastore.set(name, '_{}_time'.format(key), now.isoformat())
-            except Exception:
+                    self.datastore.set(name, '_{0}_time'.format(key), now.isoformat())
+
+                # Clear any errors from previous runs
+                if cron_key in self.errors:
+                    del self.errors[cron_key]
+                    self.datastore.set('_internal', 'errors', self.errors)
+
+            except Exception as e:
                 log.exception("Error running a check %s.%s", name, func.__name__)
+                # Store the errors so the frontend can show them
+                self.errors[cron_key] = '{0}: {1}'.format(e.__class__.__name__, str(e))
+                self.datastore.set('_internal', 'errors', self.errors)
+
             finally:
                 self.check_times[cron_key] = now

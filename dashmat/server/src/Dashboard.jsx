@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import styles from "./Dashboard.css";
 import {OfflineIndicator} from './components/OfflineIndicator.jsx';
+import {ErrorList} from './components/ErrorList.jsx';
 import {UnknownWidget} from './components/UnknownWidget.jsx';
 import {digattr} from './utils.js';
 
@@ -65,9 +66,11 @@ export class Dashboard extends Component {
           />
       );
     });
+    const internal = this.state.data._internal || {};
     return (
       <div className={styles.dashboard}>
         <OfflineIndicator lastUpdated={this.state.lastUpdated} error={this.state.error} />
+        <ErrorList errors={internal.errors} />
         {widgets}
       </div>
     )

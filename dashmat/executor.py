@@ -19,12 +19,15 @@ from dashmat.server.server import Server
 
 log = logging.getLogger("dashmat.executor")
 
+def env_load(loader, node):
+    return os.environ[node.value]
 
 class App(DelfickApp):
     cli_categories = ['dashmat']
     cli_description = "Application that reads YAML and serves up pretty dashboards"
 
     def execute(self, cli_args, args_dict, extra_args, logging_handler):
+        yaml.add_constructor('!ENV', env_load)
         raw_config = yaml.load(cli_args.config_file)
 
         # Validate the structure of the config file
