@@ -14,7 +14,7 @@ export class Graph extends Component {
   }
 
   render() {
-    const {area, backgroundColor, suffix, title, min, max, data} = this.props;
+    const {area, backgroundColor, suffix, title, min, max, data, stack} = this.props;
 
     const chartConfig = {
       axisX: {
@@ -53,6 +53,18 @@ export class Graph extends Component {
       );
     }
 
+    if (stack) {
+      const zipped = data.series[0].map((series, i) => {
+        return data.series.map(array => array[i])
+      });
+
+      data.series = data.series.map(series => series.map((val, i) => {
+        return zipped[i].filter((a, idx) => idx < i).reduce((a, b) => a + b, val)
+      }))
+
+      chartConfig.high = Math.max(...data.series.map(series => Math.max(series)))
+    }
+
     return (
       <WidgetBox className={styles.container} color={backgroundColor}>
         <div className={styles.text}>
@@ -75,6 +87,7 @@ Graph.propTypes = {
   backgroundColor: PropTypes.string,
   suffix: PropTypes.string,
   area: PropTypes.bool,
+  stack: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,
 };
