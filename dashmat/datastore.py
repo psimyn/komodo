@@ -32,7 +32,7 @@ class JsonDataStore(object):
 
     def save(self):
         with open(self.location, 'wb') as fle:
-            return json.dump(fle, self.data)
+            return json.dump(self.data, fle)
 
     def set(self, prefix, key, value):
         self.data[prefix][key] = value

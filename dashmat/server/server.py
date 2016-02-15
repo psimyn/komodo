@@ -17,8 +17,6 @@ log = logging.getLogger("dashmat.server")
 
 class Server(object):
     def __init__(self, host, port, debug, datastore, dashboards, checks, installed_widgets):
-        self.thread_stopper = {"finished": False}
-
         self.host = host
         self.port = port
         self.debug = debug
@@ -46,7 +44,7 @@ class Server(object):
         try:
             IOLoop.instance().start()
         finally:
-            self.thread_stopper["finished"] = True
+            self.datastore.save()
 
     def prepare_widgets(self, installed_widgets):
         """
