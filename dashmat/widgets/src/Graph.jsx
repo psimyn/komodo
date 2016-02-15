@@ -14,7 +14,7 @@ export class Graph extends Component {
   }
 
   render() {
-    const {area, backgroundColor, suffix, title, min, max, data} = this.props;
+    const {area, backgroundColor, suffix, title, min, max, data, stack} = this.props;
 
     const chartConfig = {
       axisX: {
@@ -53,13 +53,27 @@ export class Graph extends Component {
       );
     }
 
+    let chartClass = 'ct-octave'
+    if (stack) {
+      const zipped = data.series[0].map((series, i) => {
+        return data.series.map(array => array[i])
+      });
+
+      data.series = data.series.map(series => series.map((val, i) => {
+        return zipped[i].filter((a, idx) => idx < i).reduce((a, b) => a + b, val)
+      }))
+
+      chartConfig.high = Math.max(...data.series.map(series => Math.max(series)))
+      chartClass += ' ' + styles.stacked
+    }
+
     return (
       <WidgetBox className={styles.container} color={backgroundColor}>
         <div className={styles.text}>
           <div className={styles.title}>{title}</div>
           <div className={styles.value}>{data.value}{suffix}</div>
         </div>
-        <ChartistGraph className="ct-octave" data={data} options={chartConfig} type="Line" />
+        <ChartistGraph className={chartClass} data={data} options={chartConfig} type="Line" />
       </WidgetBox>
     );
   }
@@ -75,6 +89,7 @@ Graph.propTypes = {
   backgroundColor: PropTypes.string,
   suffix: PropTypes.string,
   area: PropTypes.bool,
+  stack: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,
 };

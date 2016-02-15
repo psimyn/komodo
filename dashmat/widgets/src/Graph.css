@@ -14,3 +14,28 @@
 .value {
   font-size: 3em;
 }
+
+.stacked :global(.ct-area) {
+  fill-opacity: 1;
+}
+
+.stacked :global(.ct-series .ct-line) {
+  stroke: #333;
+  stroke-width: 2px;
+}
+
+.stacked :global(.ct-series-a .ct-area) {
+  fill: #a00;
+}
+
+.ct-series-b .ct-area {
+  fill: #c9c;
+}
+
+.ct-series-c .ct-area {
+
+}
+
+.ct-series-d .ct-area {
+
+}
