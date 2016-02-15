@@ -53,6 +53,7 @@ export class Graph extends Component {
       );
     }
 
+    let chartClass = 'ct-octave'
     if (stack) {
       const zipped = data.series[0].map((series, i) => {
         return data.series.map(array => array[i])
@@ -63,6 +64,7 @@ export class Graph extends Component {
       }))
 
       chartConfig.high = Math.max(...data.series.map(series => Math.max(series)))
+      chartClass += ' ' + styles.stacked
     }
 
     return (
@@ -71,7 +73,7 @@ export class Graph extends Component {
           <div className={styles.title}>{title}</div>
           <div className={styles.value}>{data.value}{suffix}</div>
         </div>
-        <ChartistGraph className="ct-octave" data={data} options={chartConfig} type="Line" />
+        <ChartistGraph className={chartClass} data={data} options={chartConfig} type="Line" />
       </WidgetBox>
     );
   }
