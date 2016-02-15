@@ -20,22 +20,31 @@
 }
 
 .stacked :global(.ct-series .ct-line) {
-  stroke: #333;
+  stroke: #000;
   stroke-width: 2px;
 }
 
 .stacked :global(.ct-series-a .ct-area) {
-  fill: #a00;
+  fill: #3298DB;
+  stroke: #3298DB;
 }
 
-.ct-series-b .ct-area {
-  fill: #c9c;
+.stacked :global(.ct-series-b .ct-area) {
+  fill: #F39C12;
 }
 
-.ct-series-c .ct-area {
-
+.stacked :global(.ct-series-c .ct-area) {
+  fill: #E74C3C;
 }
 
-.ct-series-d .ct-area {
+.stacked :global(.ct-series-d .ct-area) {
+  fill: #27AE60;
+}
 
+.stacked :global(.ct-series-e .ct-area) {
+  fill: #8E44AD;
+}
+
+.stacked :global(.ct-series-f .ct-area) {
+  fill: #3A5A7A;
 }
