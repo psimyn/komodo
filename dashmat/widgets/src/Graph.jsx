@@ -59,14 +59,14 @@ export class Graph extends Component {
         return data.series.map(array => array.data[i])
       });
 
-      data.series = data.series.map(series => {
+      data.series = data.series.map((series, seriesNumber) => {
         return {
           name: series.name,
           data: series.data.map((val, i) => {
-                  return zipped[i].filter((a, idx) => idx < i).reduce((a, b) => a + b, val)
+                  return zipped[i].slice(0, seriesNumber + 1).reduce((a, b) => a + b, 0)
                 })
         };
-      });
+      }).reverse();
 
       if (chartConfig.high == undefined) {
         chartConfig.high = Math.max(...data.series.map(series => Math.max(series.data)));
@@ -80,6 +80,7 @@ export class Graph extends Component {
           <div className={styles.title}>{title}</div>
           <div className={styles.value}>{data.value}{suffix}</div>
         </div>
+
         <ChartistGraph className={chartClass} data={data} options={chartConfig} type="Line" />
       </WidgetBox>
     );
