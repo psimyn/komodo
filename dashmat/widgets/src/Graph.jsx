@@ -14,7 +14,8 @@ export class Graph extends Component {
   }
 
   render() {
-    const {area, backgroundColor, suffix, title, min, max, data, stack} = this.props;
+    const {area, backgroundColor, suffix, title, min, max, stack} = this.props;
+    let data = this.props.data;
 
     const chartConfig = {
       axisX: {
@@ -59,7 +60,7 @@ export class Graph extends Component {
         return data.series.map(array => array.data[i])
       });
 
-      data.series = data.series.map((series, seriesNumber) => {
+      const series = data.series.map((series, seriesNumber) => {
         return {
           name: series.name,
           data: series.data.map((val, i) => {
@@ -67,6 +68,8 @@ export class Graph extends Component {
                 })
         };
       }).reverse();
+      // Update chart data
+      data = Object.assign({}, data, {series: series});
 
       if (chartConfig.high == undefined) {
         chartConfig.high = Math.max(...data.series.map(series => Math.max(series.data)));
