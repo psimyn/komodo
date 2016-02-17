@@ -14,7 +14,7 @@ export class Graph extends Component {
   }
 
   render() {
-    const {area, backgroundColor, suffix, title, min, max, stack} = this.props;
+    const {area, backgroundColor, suffix, title, min, max, stack, summaryMethod} = this.props;
     let data = this.props.data;
 
     const chartConfig = {
@@ -78,12 +78,14 @@ export class Graph extends Component {
     }
 
     let displayedValue = data.value;
-    if (!displayedValue) {
-      displayedValue = Math.max(
-        ...data.series.map((s) => {
-          return s.data[s.data.length - 1];
-        })
-      );
+    if (!displayedValue && summaryMethod) {
+      if (summaryMethod == 'maxLast') {
+        displayedValue = Math.max(
+          ...data.series.map((s) => {
+            return s.data[s.data.length - 1];
+          })
+        );
+      }
     }
 
     return (
@@ -117,6 +119,7 @@ Graph.propTypes = {
   stack: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,
+  summaryMethod: PropTypes.string,
 };
 
 Graph.defaultProps = {
