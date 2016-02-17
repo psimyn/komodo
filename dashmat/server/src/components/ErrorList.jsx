@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import styles from './OfflineIndicator.css';
+import styles from './ErrorList.css';
 
 export class ErrorList extends Component {
 
@@ -8,7 +8,9 @@ export class ErrorList extends Component {
     const messages = Object.keys(errors).map((key) => {
       const error = errors[key];
       return (
-        <div key={key}>{key}: {error}</div>
+        <div key={key} className={styles.item}>
+          <strong>{key}</strong> {error}
+        </div>
       );
     });
     return (

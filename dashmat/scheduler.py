@@ -19,6 +19,7 @@ class Scheduler(Thread):
         self.finisher = {"finished": False}
         self.datastore = datastore
         self.errors = {}
+        self.datastore.set('_internal', 'errors', self.errors)
 
     def run(self):
         self.twitch()

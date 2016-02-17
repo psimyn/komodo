@@ -8,7 +8,7 @@
   justify-content: center;
   height: 100%;
   width: 100%;
-  z-index: 99;
+  z-index: 1;
 }
 
 .value {
@@ -26,7 +26,6 @@
 
 .stacked :global(.ct-series-a .ct-area) {
   fill: #3298DB;
-  stroke: #3298DB;
 }
 
 .stacked :global(.ct-series-b .ct-area) {
