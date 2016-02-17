@@ -77,11 +77,20 @@ export class Graph extends Component {
       chartClass += ' ' + styles.stacked
     }
 
+    let displayedValue = data.value;
+    if (!displayedValue) {
+      displayedValue = Math.max(
+        ...data.series.map((s) => {
+          return s.data[s.data.length - 1];
+        })
+      );
+    }
+
     return (
       <WidgetBox className={styles.container} color={backgroundColor}>
         <div className={styles.text}>
           <div className={styles.title}>{title}</div>
-          <div className={styles.value}>{data.value}{suffix}</div>
+          <div className={styles.value}>{displayedValue}{suffix}</div>
         </div>
 
         <ChartistGraph className={chartClass} data={data} options={chartConfig} type="Line" />
@@ -94,7 +103,12 @@ Graph.propTypes = {
   data: PropTypes.shape({
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     labels: PropTypes.array,
-    series: PropTypes.array.isRequired,
+    series: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        data: PropTypes.array.isRequired,
+      }).isRequired
+    ).isRequired,
   }),
   title: PropTypes.string,
   backgroundColor: PropTypes.string,
