@@ -1,6 +1,11 @@
+.container {
+  max-width: 1000px;
+  height: 340px;
+}
+
 .text {
   position: absolute;
-  font-size: 1rem;
+  font-size: 2rem;
   color: white;
   display: flex;
   flex-direction: column;
@@ -13,37 +18,59 @@
 
 .value {
   font-size: 3em;
+  font-weight: bold;
 }
 
 .stacked :global(.ct-area) {
   fill-opacity: 1;
 }
 
-.stacked :global(.ct-series .ct-line) {
-  stroke: #000;
-  stroke-width: 2px;
-}
-
-.stacked :global(.ct-series-a .ct-area) {
+.stacked :global(.ct-series-f .ct-area) {
   fill: #3298DB;
 }
-
-.stacked :global(.ct-series-b .ct-area) {
-  fill: #F39C12;
-}
-
-.stacked :global(.ct-series-c .ct-area) {
-  fill: #E74C3C;
-}
-
-.stacked :global(.ct-series-d .ct-area) {
-  fill: #27AE60;
+.container :global(.ct-series-a .ct-line) {
+  stroke: #3298DB;
 }
 
 .stacked :global(.ct-series-e .ct-area) {
-  fill: #8E44AD;
+  fill: #F39C12;
+}
+.container :global(.ct-series-b .ct-line) {
+  stroke: #F39C12;
 }
 
-.stacked :global(.ct-series-f .ct-area) {
+.stacked :global(.ct-series-d .ct-area) {
+  fill: #E74C3C;
+}
+.container :global(.ct-series-c .ct-line) {
+  stroke: #E74C3C;
+}
+
+.stacked :global(.ct-series-c .ct-area) {
+  fill: #27AE60;
+}
+.container :global(.ct-series-d .ct-line) {
+  stroke: #27AE60;
+}
+
+.stacked :global(.ct-series-b .ct-area) {
+  fill: #8E44AD;
+}
+.container :global(.ct-series-e .ct-line) {
+  stroke: #8E44AD;
+}
+
+.stacked :global(.ct-series-a .ct-area) {
   fill: #3A5A7A;
+}
+.container :global(.ct-series-f .ct-line) {
+  stroke: #3A5A7A;
+}
+
+.container :global(.ct-series .ct-line) {
+  stroke-width: 5px;
+}
+.stacked :global(.ct-series .ct-line) {
+  stroke: #000;
+  stroke-width: 2px;
 }
