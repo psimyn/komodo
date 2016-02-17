@@ -107,4 +107,5 @@ Graph.defaultProps = {
   suffix: '',
   title: '',
   backgroundColor: '#2c3e50',
-}
+  min: 0,
+};
