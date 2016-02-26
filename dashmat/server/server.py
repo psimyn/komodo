@@ -10,13 +10,12 @@ from flask import Flask
 
 import logging
 import flask
-import os
 
 log = logging.getLogger("dashmat.server")
 
 
 class Server(object):
-    def __init__(self, host, port, debug, datastore, dashboards, checks, installed_widgets):
+    def __init__(self, host, port, debug, datastore, dashboards, checks, installed_widgets, plugins):
         self.host = host
         self.port = port
         self.debug = debug
@@ -25,6 +24,7 @@ class Server(object):
         self.checks = checks
         self.dashboards = dashboards
         self.installed_widgets = self.prepare_widgets(installed_widgets)
+        self.plugins = [p.import_path() for p in plugins]
 
     def serve(self):
         http_server = HTTPServer(WSGIContainer(self.app))
@@ -65,6 +65,10 @@ class Server(object):
 
             # Register our own routes
             self.register_routes(self._app)
+
+            # Install plugins
+            for plugin in self.plugins:
+                plugin.flask_init(self._app)
 
         return self._app
 

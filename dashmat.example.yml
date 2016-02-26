@@ -18,6 +18,7 @@ dashboards:
          options:
            title: Revenue
            prefix: $
+           suffix: "k"
            backgroundColor: "#3498db"
        - type: StatusList
          data: statuses.status1
@@ -48,3 +49,6 @@ checks:
     import_path: dashmat.core_modules.example:RandomNumbers
   statuses:
     import_path: dashmat.core_modules.example:RandomStatus
+
+plugins:
+  - import_path: dashmat.plugins.auth:SocialAuthPlugin

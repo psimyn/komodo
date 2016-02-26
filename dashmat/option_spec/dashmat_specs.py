@@ -13,8 +13,9 @@ from importlib import import_module
 
 from dashmat.formatter import MergedOptionStringFormatter
 
-from dashmat.core_modules import CheckBase
+from dashmat.core_modules.base import CheckBase
 from dashmat.widgets.base import Widget
+from dashmat.plugins.base import PluginBase
 
 
 class Import(valid_string_spec):
@@ -105,6 +106,14 @@ class Check(dictobj.Spec):
         , help = "Options to pass into the constructor"
         )
 
+class Plugin(dictobj.Spec):
+    import_path = dictobj.Field(
+          Import(PluginBase)
+        , formatted = True
+        , wrapper = required
+        , help = "Import path of the Plugin class"
+        )
+
 
 class ConfigRoot(dictobj.Spec):
     dashboards = dictobj.Field(
@@ -120,6 +129,10 @@ class ConfigRoot(dictobj.Spec):
     installed_widgets = dictobj.Field(
         ClassList(Import(Widget))
         , wrapper = required
+    )
+
+    plugins = dictobj.Field(
+        List(Plugin.FieldSpec(formatter=MergedOptionStringFormatter))
     )
 
     def validate_widgets(self):
