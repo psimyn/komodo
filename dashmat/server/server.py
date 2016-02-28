@@ -20,11 +20,11 @@ class Server(object):
         self.port = port
         self.debug = debug
         self.datastore = datastore
+        self.dashboards = dashboards
 
         self.checks = checks
-        self.dashboards = dashboards
+        self.plugins = self.prepare_plugins(plugins)
         self.installed_widgets = self.prepare_widgets(installed_widgets)
-        self.plugins = [p.import_path() for p in plugins]
 
     def serve(self):
         http_server = HTTPServer(WSGIContainer(self.app))
@@ -57,6 +57,12 @@ class Server(object):
         for name, WidgetKls in installed_widgets.iteritems():
             result[name] = WidgetKls()
         return result
+
+    def prepare_plugins(self, plugins):
+        return [
+            p.import_path(**p.options)
+            for p in plugins
+        ]
 
     @property
     def app(self):

@@ -52,3 +52,6 @@ checks:
 
 plugins:
   - import_path: dashmat.plugins.auth:SocialAuthPlugin
+    options:
+      client_id: CHANGEME
+      client_secret: CHANGEME

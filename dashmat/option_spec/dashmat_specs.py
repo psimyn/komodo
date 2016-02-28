@@ -114,6 +114,11 @@ class Plugin(dictobj.Spec):
         , help = "Import path of the Plugin class"
         )
 
+    options = dictobj.Field(
+          dictionary_spec
+        , help = "Options to pass into the constructor"
+        )
+
 
 class ConfigRoot(dictobj.Spec):
     dashboards = dictobj.Field(
