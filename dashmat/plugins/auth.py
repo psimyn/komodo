@@ -40,9 +40,19 @@ class SocialAuthPlugin(PluginBase):
         app.config['SECRET_KEY'] = 'abc123'
         app.config['SOCIAL_AUTH_USER_MODEL'] = 'dashmat.plugins.auth.User'
         app.config['SOCIAL_AUTH_PASSWORDLESS'] = True
+        app.config['SOCIAL_AUTH_SANITIZE_REDIRECTS'] = True
         app.config['SOCIAL_AUTH_AUTHENTICATION_BACKENDS'] = [
             'social.backends.google.GooglePlusAuth',
         ]
+        app.config['SOCIAL_AUTH_PIPELINE'] = (
+            'social.pipeline.social_auth.social_details',
+            'social.pipeline.social_auth.social_uid',
+            'social.pipeline.social_auth.auth_allowed',
+            'social.pipeline.social_auth.social_user',
+            'social.pipeline.social_auth.associate_user',
+            'social.pipeline.social_auth.load_extra_data',
+            'social.pipeline.user.user_details',
+        )
 
         # Where to redirect on error
         app.config['SOCIAL_AUTH_LOGIN_URL'] = '/login/'
@@ -55,7 +65,7 @@ class SocialAuthPlugin(PluginBase):
         if self.restrict_domains:
             app.config['SOCIAL_AUTH_GOOGLE_PLUS_WHITELISTED_DOMAINS'] = self.restrict_domains
         if self.restrict_emails:
-            app.config['SOCIAL_AUTH_GOOGLE_PLUS_WHITELISTED_ENMAILS'] = self.restrict_emails
+            app.config['SOCIAL_AUTH_GOOGLE_PLUS_WHITELISTED_EMAILS'] = self.restrict_emails
 
 
     def commit(self, error=None):
@@ -75,14 +85,18 @@ class SocialAuthPlugin(PluginBase):
         g.user = current_user
 
     def auth_required(self):
-        if not request.endpoint.startswith('social.') and not current_user.is_authenticated:
-            session['login_redirect'] = request.endpoint
+        # Don't intercept these
+        if request.endpoint == 'finish_login' or request.endpoint.startswith('social.'):
+            return
+
+        if not current_user.is_authenticated:
+            session['login_redirect'] = request.path
             return redirect(url_for('social.auth', backend='google-plus'))
 
-    def endpoint(self):
+    def finish_login(self):
         if current_user.is_authenticated:
-            return_path = session.pop('login_redirect') or 'dashmat.home'
-            return redirect(url_for(return_path))
+            return_path = session.pop('login_redirect', '/')
+            return redirect(return_path)
         return 'Authentication failed'
 
     def flask_init(self, app):
@@ -102,4 +116,4 @@ class SocialAuthPlugin(PluginBase):
         app.before_request(self.inject_user)
         app.before_request(self.auth_required)
         app.teardown_appcontext(self.commit)
-        app.route('/login/', methods=['GET'])(self.endpoint)
+        app.route('/login/', methods=['GET'])(self.finish_login)
