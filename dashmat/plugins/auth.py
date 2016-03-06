@@ -1,6 +1,7 @@
 from dashmat.plugins.base import PluginBase
 
 from social.apps.flask_app.routes import social_auth
+from social.exceptions import SocialAuthBaseException
 from social.apps.flask_app.default.models import init_social, PSABase
 
 from sqlalchemy import create_engine
@@ -42,13 +43,15 @@ class SocialAuthPlugin(PluginBase):
         app.config['SOCIAL_AUTH_PASSWORDLESS'] = True
         app.config['SOCIAL_AUTH_SANITIZE_REDIRECTS'] = True
         app.config['SOCIAL_AUTH_AUTHENTICATION_BACKENDS'] = [
-            'social.backends.google.GooglePlusAuth',
+            'social.backends.google.GoogleOAuth2',
         ]
         app.config['SOCIAL_AUTH_PIPELINE'] = (
             'social.pipeline.social_auth.social_details',
             'social.pipeline.social_auth.social_uid',
             'social.pipeline.social_auth.auth_allowed',
             'social.pipeline.social_auth.social_user',
+            'social.pipeline.user.get_username',
+            'social.pipeline.user.create_user',
             'social.pipeline.social_auth.associate_user',
             'social.pipeline.social_auth.load_extra_data',
             'social.pipeline.user.user_details',
@@ -59,13 +62,13 @@ class SocialAuthPlugin(PluginBase):
         # Where to go after login
         app.config['SOCIAL_AUTH_LOGIN_REDIRECT_URL'] = '/login/'
 
-        app.config['SOCIAL_AUTH_GOOGLE_PLUS_KEY'] = self.client_id
-        app.config['SOCIAL_AUTH_GOOGLE_PLUS_SECRET'] = self.client_secret
+        app.config['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY'] = self.client_id
+        app.config['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'] = self.client_secret
 
         if self.restrict_domains:
-            app.config['SOCIAL_AUTH_GOOGLE_PLUS_WHITELISTED_DOMAINS'] = self.restrict_domains
+            app.config['SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS'] = self.restrict_domains
         if self.restrict_emails:
-            app.config['SOCIAL_AUTH_GOOGLE_PLUS_WHITELISTED_EMAILS'] = self.restrict_emails
+            app.config['SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_EMAILS'] = self.restrict_emails
 
 
     def commit(self, error=None):
@@ -91,13 +94,19 @@ class SocialAuthPlugin(PluginBase):
 
         if not current_user.is_authenticated:
             session['login_redirect'] = request.path
-            return redirect(url_for('social.auth', backend='google-plus'))
+            return redirect(url_for('social.auth', backend='google-oauth2'))
 
     def finish_login(self):
         if current_user.is_authenticated:
             return_path = session.pop('login_redirect', '/')
             return redirect(return_path)
-        return 'Authentication failed'
+        return 'Authentication failed <a href="{}">retry</a>'.format(
+            url_for('social.auth', backend='google-oauth2')
+        )
+
+    def handle_exception(self, error):
+        if isinstance(error, SocialAuthBaseException):
+            return redirect('/login/')
 
     def flask_init(self, app):
         log.info('Installing auth')
@@ -117,3 +126,4 @@ class SocialAuthPlugin(PluginBase):
         app.before_request(self.auth_required)
         app.teardown_appcontext(self.commit)
         app.route('/login/', methods=['GET'])(self.finish_login)
+        app.errorhandler(500)(self.handle_exception)

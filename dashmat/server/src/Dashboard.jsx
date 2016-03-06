@@ -16,7 +16,7 @@ export class Dashboard extends Component {
     };
   }
   refresh() {
-    fetch('/data.json')
+    fetch('/data.json', {credentials: 'same-origin'})
       .then(data => data.json())
       .then(data => {
         this.setState({
