@@ -35,9 +35,8 @@ class App(DelfickApp):
         config = spec.normalise(Meta(everything=raw_config, path=[]), raw_config)
         config.validate_widgets()
 
-        datastore = JsonDataStore(os.path.join(os.path.dirname(cli_args.config_file.name), "data.json"))
-        # if cli_args.redis_host:
-        #     datastore = RedisDataStore(redis.Redis(cli_args.redis_host))
+        base_dir = os.path.dirname(cli_args.config_file.name)
+        datastore = JsonDataStore(os.path.join(base_dir, "data.json"))
 
         Server(
               host = cli_args.host
