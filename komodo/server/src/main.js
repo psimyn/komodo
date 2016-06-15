@@ -4,14 +4,19 @@ import {Dashboard} from './Dashboard.jsx';
 import {Index} from './Index.jsx';
 import WidgetBox from './components/WidgetBox.jsx';
 
+const tvMode = !!localStorage.getItem('tvMode');
+
 // Bootstrap function for browser
 export function dashboard(props) {
   const element = React.createElement(Dashboard, props);
+  if (tvMode) {
+    document.body.style.width = '1920px';
+  }
   ReactDOM.render(element, document.getElementById('page-content'));
 }
 
 export function index(props) {
-  const element = React.createElement(Index, props);
+  const element = React.createElement(Index, {...props, tvMode});
   ReactDOM.render(element, document.getElementById('page-content'));
 }
 

@@ -19,16 +19,31 @@ IndexItem.propTypes = {
 
 
 export class Index extends Component {
+  setCookie (evt) {
+    if (evt.target.checked) {
+      localStorage.setItem('tvMode', true);
+    } else {
+      localStorage.removeItem('tvMode');
+    }
+  }
+
   render() {
     const list = this.props.dashboards.map((dashboard) => {
       const href = '/' + dashboard.slug;
       return (<IndexItem key={dashboard.slug} desc={dashboard.description} href={href} />);
     });
     const title = this.props.title || "Dashboards";
+    const checked = this.props.tvMode;
     return (
       <div className={styles.container}>
         <h1 className={styles.heading}>{title}</h1>
-          {list}
+        {list}
+        <input name="tvMode"
+          type="checkbox"
+          defaultChecked={checked}
+          {...checked}
+          onChange={this.setCookie} />
+        <label for="tvMode">TV Mode (fixed-width)</label>
       </div>
     );
   }
@@ -42,4 +57,5 @@ Index.propTypes = {
     })
   ).isRequired,
   title: PropTypes.string,
+  tvMode: PropTypes.bool,
 };
