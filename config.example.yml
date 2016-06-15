@@ -49,15 +49,3 @@ checks:
     import_path: komodo.core_modules.example:RandomNumbers
   statuses:
     import_path: komodo.core_modules.example:RandomStatus
-
-#plugins:
-#  # This plugin protects your dashboard behind a google login prompt
-#  - import_path: komodo.plugins.auth:SocialAuthPlugin
-#    options:
-#      client_id: CHANGEME
-#      client_secret: CHANGEME
-#      restrict_emails:
-#        - user1@example.com
-#      restrict_domains:
-#        - mycompany.com
-#        - example.com

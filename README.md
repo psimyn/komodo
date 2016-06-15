@@ -13,5 +13,5 @@ Dev Setup
 pip install -e .
 npm install
 npm run build
-dashmat --config example.yml.example
+dashmat --config config.example.yml
 ```
