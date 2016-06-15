@@ -65,9 +65,20 @@ class Server(object):
         ]
 
     @property
+    def secret_key(self):
+        secret = self.datastore.get('__private', 'SECRET_KEY')
+        if not secret:
+            import os
+            import binascii
+            secret = binascii.hexlify(os.urandom(64))
+            self.datastore.set('__private', 'SECRET_KEY', secret)
+        return secret
+
+    @property
     def app(self):
         if getattr(self, "_app", None) is None:
             self._app = Flask(__name__)
+            self._app.config['SECRET_KEY'] = self.secret_key
 
             # Register our own routes
             self.register_routes(self._app)
@@ -111,7 +122,7 @@ class Server(object):
             return render_template('index.html', props=props, title="Welcome")
 
         @app.route("/<name>", methods=["GET"])
-        def dashboard(name):
+        def dashboard_view(name):
             if name not in self.dashboards:
                 raise abort(404)
 

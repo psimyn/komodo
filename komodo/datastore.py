@@ -6,17 +6,6 @@ from collections import defaultdict
 log = logging.getLogger(__name__)
 
 
-class RedisDataStore(object):
-    def __init__(self, redis):
-        self.redis = redis
-
-    def create(self, prefix, key, value):
-        self.redis.set("checks-{0}-{1}".format(prefix, key), json.dumps(value))
-
-    def retrieve(self, prefix, key):
-        return json.loads(self.redis.get("checks-{0}-{1}".format(prefix, key)))
-
-
 class JsonDataStore(object):
     def __init__(self, location):
         self.location = location
@@ -41,4 +30,13 @@ class JsonDataStore(object):
         return self.data[prefix].get(key, None)
 
     def get_all(self):
-        return dict(self.data)
+        """
+        Get all the data. We currently send all data to all clients.
+
+        NOTE: Removes internal private data first.
+
+        :return: dict
+        """
+        data = dict(self.data)
+        del data['__private']
+        return data
