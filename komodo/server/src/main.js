@@ -10,7 +10,7 @@ const tvMode = !!localStorage.getItem('tvMode');
 export function dashboard(props) {
   const element = React.createElement(Dashboard, props);
   if (tvMode) {
-    document.body.style.width = '1920px';
+    document.body.classList.add('tvMode');
   }
   ReactDOM.render(element, document.getElementById('page-content'));
 }
