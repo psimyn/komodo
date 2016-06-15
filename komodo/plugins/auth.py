@@ -1,4 +1,4 @@
-from dashmat.plugins.base import PluginBase
+from komodo.plugins.base import PluginBase
 
 from social.apps.flask_app.routes import social_auth
 from social.exceptions import SocialAuthBaseException
@@ -39,7 +39,7 @@ class SocialAuthPlugin(PluginBase):
 
     def configure(self, app):
         app.config['SECRET_KEY'] = 'abc123'
-        app.config['SOCIAL_AUTH_USER_MODEL'] = 'dashmat.plugins.auth.User'
+        app.config['SOCIAL_AUTH_USER_MODEL'] = 'komodo.plugins.auth.User'
         app.config['SOCIAL_AUTH_PASSWORDLESS'] = True
         app.config['SOCIAL_AUTH_SANITIZE_REDIRECTS'] = True
         app.config['SOCIAL_AUTH_AUTHENTICATION_BACKENDS'] = [

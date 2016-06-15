@@ -1,8 +1,8 @@
 installed_widgets:
-  - dashmat.widgets:Number
-  - dashmat.widgets:StatusList
-  - dashmat.widgets:Graph
-  - dashmat.widgets:Gauge
+  - komodo.widgets:Number
+  - komodo.widgets:StatusList
+  - komodo.widgets:Graph
+  - komodo.widgets:Gauge
 
 dashboards:
   example:
@@ -46,13 +46,13 @@ dashboards:
 
 checks:
   random:
-    import_path: dashmat.core_modules.example:RandomNumbers
+    import_path: komodo.core_modules.example:RandomNumbers
   statuses:
-    import_path: dashmat.core_modules.example:RandomStatus
+    import_path: komodo.core_modules.example:RandomStatus
 
 #plugins:
 #  # This plugin protects your dashboard behind a google login prompt
-#  - import_path: dashmat.plugins.auth:SocialAuthPlugin
+#  - import_path: komodo.plugins.auth:SocialAuthPlugin
 #    options:
 #      client_id: CHANGEME
 #      client_secret: CHANGEME

@@ -4,7 +4,7 @@ import datetime
 import logging
 import time
 
-from dashmat.timezone import utc
+from komodo.timezone import utc
 
 log = logging.getLogger(__name__)
 

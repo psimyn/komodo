@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './Graph.css';
-import {WidgetBox} from 'Dashmat';
+import {WidgetBox} from 'komodo';
 import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 

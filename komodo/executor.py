@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 This is where the mainline sits and is responsible for setting up the logging,
-the argument parsing and for starting up dashmat.
+the argument parsing and for starting up komodo.
 """
 
 import os
@@ -13,17 +13,17 @@ from input_algorithms.meta import Meta
 
 from delfick_app import App as DelfickApp
 
-from dashmat.datastore import JsonDataStore
-from dashmat.option_spec.dashmat_specs import ConfigRoot
-from dashmat.server.server import Server
+from komodo.datastore import JsonDataStore
+from komodo.option_spec.komodo_specs import ConfigRoot
+from komodo.server.server import Server
 
-log = logging.getLogger("dashmat.executor")
+log = logging.getLogger("komodo.executor")
 
 def env_load(loader, node):
     return os.environ[node.value]
 
 class App(DelfickApp):
-    cli_categories = ['dashmat']
+    cli_categories = ['komodo']
     cli_description = "Application that reads YAML and serves up pretty dashboards"
 
     def execute(self, cli_args, args_dict, extra_args, logging_handler):

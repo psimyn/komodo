@@ -4,14 +4,14 @@ var path = require('path');
 module.exports = [
   // Main bundle
   {
-    context: path.resolve('dashmat'),
+    context: path.resolve('komodo'),
     entry: {
       bundle: "./server/src/main.js"
     },
     output: {
       filename: "[name].js",
-      path: "dashmat/server/static",
-      library: "Dashmat",
+      path: "komodo/server/static",
+      library: "komodo",
       publicPath: "/static"
     },
     module: {
@@ -39,7 +39,7 @@ module.exports = [
   },
   // Widget builds
   {
-    context: path.resolve('dashmat'),
+    context: path.resolve('komodo'),
     entry: {
       Number: "./widgets/src/Number.jsx",
       StatusList: "./widgets/src/StatusList.jsx",
@@ -50,7 +50,7 @@ module.exports = [
     },
     output: {
       filename: "[name].js",
-      path: "dashmat/widgets/bundles",
+      path: "komodo/widgets/bundles",
       library: "widget_[name]",
       publicPath: "/static"
     },
@@ -72,9 +72,9 @@ module.exports = [
       ]
     },
     externals: {
-      'Dashmat': 'Dashmat',
-      'react': "Dashmat.React",
-      'react-dom': 'Dashmat.ReactDOM',
+      'komodo': 'komodo',
+      'react': "komodo.React",
+      'react-dom': 'komodo.ReactDOM',
     },
     plugins: [
       new webpack.NoErrorsPlugin()

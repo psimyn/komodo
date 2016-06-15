@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {WidgetBox} from 'Dashmat';
+import {WidgetBox} from 'komodo';
 import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import styles from './Gauge.css';

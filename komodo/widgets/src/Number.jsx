@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './Number.css';
-import {WidgetBox} from 'Dashmat';
+import {WidgetBox} from 'komodo';
 
 
 export class Number extends Component {

@@ -1,5 +1,5 @@
 """
-Here we define the yaml specification for dashmat options
+Here we define the yaml specification for komodo options
 
 The specifications are responsible for sanitation, validation and normalisation.
 """
@@ -11,11 +11,11 @@ from input_algorithms.spec_base import string_spec as String, listof as List, di
 from input_algorithms.dictobj import dictobj
 from importlib import import_module
 
-from dashmat.formatter import MergedOptionStringFormatter
+from komodo.formatter import MergedOptionStringFormatter
 
-from dashmat.core_modules.base import CheckBase
-from dashmat.widgets.base import Widget
-from dashmat.plugins.base import PluginBase
+from komodo.core_modules.base import CheckBase
+from komodo.widgets.base import Widget
+from komodo.plugins.base import PluginBase
 
 
 class Import(valid_string_spec):

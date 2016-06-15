@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
-from dashmat import VERSION
+from komodo import VERSION
 
 setup(
-      name = "dashmat"
+      name = "komodo"
     , version = VERSION
     , packages = find_packages(exclude=['tests'])
     , package_data =
-      { 'dashmat.widgets': [ 'bundles/*.js' ]
-      , 'dashmat.server':
+      { 'komodo.widgets': [ 'bundles/*.js' ]
+      , 'komodo.server':
         [ 'templates/*.html'
         , 'static/*.js'
         ]
@@ -38,14 +38,14 @@ setup(
 
     , entry_points =
       { 'console_scripts' :
-        [ 'dashmat = dashmat.executor:main'
+        [ 'komodo = komodo.executor:main'
         ]
       }
 
     # metadata for upload to PyPI
-    , url = "https://github.com/realestate-com-au/dashmat"
-    , author = "Stephen Moore"
-    , author_email = "stephen.moore@rea-group.com"
+    , url = "https://github.com/mic159/komodo"
+    , author = "Michael Cooper"
+    , author_email = "mic159@gmail.com"
     , description = "Application that reads yaml and serves up a pretty dashboard"
     , license = "MIT"
     , keywords = "dashboard"

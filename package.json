@@ -1,6 +1,7 @@
 {
-  "name": "dashmat",
-  "version": "0.1.0",
+  "name": "komodo",
+  "private": true,
+  "version": "1.0.0",
   "scripts": {
     "build": "webpack",
     "dev": "webpack --watch --progress"

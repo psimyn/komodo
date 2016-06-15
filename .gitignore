@@ -6,6 +6,6 @@ data.json
 dist/
 /.idea
 /node_modules/
-/dashmat/server/static/bundle.js
-/dashmat/widgets/bundles/*.js
-/dashmat.yml
+/komodo/server/static/bundle.js
+/komodo/widgets/bundles/*.js
+/komodo.yml

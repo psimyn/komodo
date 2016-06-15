@@ -1,4 +1,4 @@
-from dashmat.scheduler import Scheduler
+from komodo.scheduler import Scheduler
 
 from tornado.httpserver import HTTPServer
 from tornado.wsgi import WSGIContainer
@@ -11,7 +11,7 @@ from flask import Flask
 import logging
 import flask
 
-log = logging.getLogger("dashmat.server")
+log = logging.getLogger(__name__)
 
 
 class Server(object):

@@ -14,7 +14,7 @@ To do this we define the MergedOptionStringFormatter below that uses the magic
 of MergedOptions to do the lookup for us.
 """
 
-from dashmat.errors import BadOptionFormat
+from komodo.errors import BadOptionFormat
 
 from option_merge.formatter import MergedOptionStringFormatter as StringFormatter
 from input_algorithms.meta import Meta

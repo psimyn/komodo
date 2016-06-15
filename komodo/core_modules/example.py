@@ -1,6 +1,6 @@
 import random
 
-from dashmat.core_modules.base import CheckBase
+from komodo.core_modules.base import CheckBase
 
 
 class RandomNumbers(CheckBase):
