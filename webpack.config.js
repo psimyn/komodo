@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = [
   // Main bundle
   {
-    context: path.resolve('komodo'),
+    context: path.resolve(__dirname, 'komodo'),
     entry: {
       bundle: "./server/src/main.js"
     },
@@ -36,7 +36,7 @@ module.exports = [
   },
   // Widget builds
   {
-    context: path.resolve('komodo'),
+    context: path.resolve(__dirname, 'komodo'),
     entry: {
       Number: "./widgets/src/Number.jsx",
       StatusList: "./widgets/src/StatusList.jsx",
