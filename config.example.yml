@@ -41,7 +41,14 @@ dashboards:
       - type: Graph
         data: random.graph
         options:
-          title: aaa
+          title: Lines
+          legend: true
+      - type: Graph
+        data: random.graph
+        options:
+          title: Stacked area
+          legend: true
+          stack: true
 
 
 checks:

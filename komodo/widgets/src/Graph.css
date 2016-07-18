@@ -22,50 +22,105 @@
   font-weight: bold;
 }
 
+.legend {
+  position: absolute;
+  top: 300px;
+  z-index: 1;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.legend li {
+  position: relative;
+  padding-left: 23px;
+  margin-bottom: 3px;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.legend li:before {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  left: 0;
+  content: '';
+  border: 3px solid red;
+  background-color: red;
+  border-radius: 2px;
+}
+
+.container :global(.ct-area) {
+  fill-opacity: 0;
+}
+
 .stacked :global(.ct-area) {
   fill-opacity: 1;
 }
 
-.stacked :global(.ct-series-f .ct-area) {
+.stacked :global(.ct-series-a .ct-area) {
   fill: #3298DB;
 }
 .container :global(.ct-series-a .ct-line) {
   stroke: #3298DB;
 }
+.legend :global(.ct-series-0:before) {
+  background-color: #3298DB;
+  border-color: #3298DB;
+}
 
-.stacked :global(.ct-series-e .ct-area) {
+.stacked :global(.ct-series-b .ct-area) {
   fill: #F39C12;
 }
 .container :global(.ct-series-b .ct-line) {
   stroke: #F39C12;
 }
+.legend :global(.ct-series-1:before) {
+  background-color: #F39C12;
+  border-color: #F39C12;
+}
 
-.stacked :global(.ct-series-d .ct-area) {
+.stacked :global(.ct-series-c .ct-area) {
   fill: #E74C3C;
 }
 .container :global(.ct-series-c .ct-line) {
   stroke: #E74C3C;
 }
+.legend :global(.ct-series-2:before) {
+  background-color: #E74C3C;
+  border-color: #E74C3C;
+}
 
-.stacked :global(.ct-series-c .ct-area) {
+.stacked :global(.ct-series-d .ct-area) {
   fill: #27AE60;
 }
 .container :global(.ct-series-d .ct-line) {
   stroke: #27AE60;
 }
+.legend :global(.ct-series-3:before) {
+  background-color: #27AE60;
+  border-color: #27AE60;
+}
 
-.stacked :global(.ct-series-b .ct-area) {
+.stacked :global(.ct-series-e .ct-area) {
   fill: #8E44AD;
 }
 .container :global(.ct-series-e .ct-line) {
   stroke: #8E44AD;
 }
+.legend :global(.ct-series-4:before) {
+  background-color: #8E44AD;
+  border-color: #8E44AD;
+}
 
-.stacked :global(.ct-series-a .ct-area) {
+.stacked :global(.ct-series-f .ct-area) {
   fill: #3A5A7A;
 }
 .container :global(.ct-series-f .ct-line) {
   stroke: #3A5A7A;
+}
+.legend :global(.ct-series-5:before) {
+  background-color: #3A5A7A;
+  border-color: #3A5A7A;
 }
 
 .container :global(.ct-series .ct-line) {

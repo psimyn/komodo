@@ -6,6 +6,7 @@ import Chartist from 'chartist';
 
 // Put the chartist CSS into the page. Magic!
 require('style-loader!raw!chartist/dist/chartist.min.css');
+require('chartist-plugin-legend');
 
 
 export class Graph extends Component {
@@ -14,7 +15,7 @@ export class Graph extends Component {
   }
 
   render() {
-    const {area, backgroundColor, suffix, title, min, max, stack, summaryMethod} = this.props;
+    const {area, backgroundColor, suffix, title, min, max, stack, summaryMethod, legend, reversed} = this.props;
     let data = this.props.data;
 
     const chartConfig = {
@@ -30,10 +31,11 @@ export class Graph extends Component {
       },
       low: min,
       high: max,
-      height: 340,
+      height: legend ? 310 : 340,
       showPoint: false,
       showArea: area,
       fullWidth: true,
+      reverseData: reversed,
       chartPadding: {
         top: 0,
         right: 0,
@@ -52,6 +54,14 @@ export class Graph extends Component {
           </div>
         </WidgetBox>
       );
+    }
+
+    if (legend) {
+      chartConfig.plugins = [
+        Chartist.plugins.legend({
+          className: styles.legend,
+        })
+      ];
     }
 
     let chartClass = 'ct-octave';
@@ -120,12 +130,16 @@ Graph.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   summaryMethod: PropTypes.string,
+  legend: PropTypes.bool,
+  reversed: PropTypes.bool,
 };
 
 Graph.defaultProps = {
   area: true,
+  legend: false,
   suffix: '',
   title: '',
   backgroundColor: '#2c3e50',
   min: 0,
+  reversed: false,
 };
