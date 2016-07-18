@@ -15,7 +15,7 @@ export class Graph extends Component {
   }
 
   render() {
-    const {area, backgroundColor, suffix, title, min, max, stack, summaryMethod, legend, reversed} = this.props;
+    const {area, backgroundColor, suffix, title, min, max, stack, summaryMethod, legend} = this.props;
     let data = this.props.data;
 
     const chartConfig = {
@@ -35,7 +35,6 @@ export class Graph extends Component {
       showPoint: false,
       showArea: area,
       fullWidth: true,
-      reverseData: reversed,
       chartPadding: {
         top: 0,
         right: 0,
@@ -74,8 +73,8 @@ export class Graph extends Component {
         return {
           name: series.name,
           data: series.data.map((val, i) => {
-                  return zipped[i].slice(0, seriesNumber + 1).reduce((a, b) => a + b, 0)
-                })
+            return zipped[i].slice(0, seriesNumber + 1).reduce((a, b) => a + b, 0)
+          })
         };
       }).reverse();
       // Update chart data
@@ -84,6 +83,9 @@ export class Graph extends Component {
       if (chartConfig.high == undefined) {
         chartConfig.high = Math.max(...data.series.map(series => Math.max(series.data)));
       }
+    }
+
+    if (area) {
       chartClass += ' ' + styles.stacked
     }
 
@@ -95,6 +97,11 @@ export class Graph extends Component {
             return s.data[s.data.length - 1];
           })
         );
+      }
+      if (summaryMethod == 'sumLast') {
+        displayedValue = data.series.map((s) => {
+          return s.data[s.data.length - 1];
+        }).reduce((a, b)=> a + b, 0);
       }
     }
 
@@ -131,15 +138,14 @@ Graph.propTypes = {
   max: PropTypes.number,
   summaryMethod: PropTypes.string,
   legend: PropTypes.bool,
-  reversed: PropTypes.bool,
 };
 
 Graph.defaultProps = {
-  area: true,
+  area: false,
   legend: false,
   suffix: '',
   title: '',
   backgroundColor: '#2c3e50',
   min: 0,
-  reversed: false,
+  summaryMethod: 'maxLast',
 };

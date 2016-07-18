@@ -46,9 +46,17 @@ dashboards:
       - type: Graph
         data: random.graph
         options:
+          title: Area
+          legend: true
+          area: true
+      - type: Graph
+        data: random.graph
+        options:
           title: Stacked area
           legend: true
           stack: true
+          area: true
+          summaryMethod: sumLast
 
 
 checks:
