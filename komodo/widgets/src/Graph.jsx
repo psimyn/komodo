@@ -93,7 +93,7 @@ export class Graph extends Component {
     }
 
 
-    // The number to display. Either displayedValue or summaryMethod.
+    // The number to display. Either data.value or summaryMethod.
     let displayedValue = data.value;
     if (!displayedValue && summaryMethod) {
       if (summaryMethod == 'maxLast') {
@@ -110,6 +110,19 @@ export class Graph extends Component {
       }
     }
 
+    // Set size of the bars
+    let listener = {
+      draw: (data) => {
+        if (data.type === 'bar') {
+          let numPoints = data.series.data.length * (stack ? 1 : this.props.data.series.length);
+          const width = Math.round(100.0 / numPoints);
+          data.element.attr({
+            style: `stroke-width: ${width}%`,
+          })
+        }
+      }
+    };
+
     return (
       <WidgetBox className={styles.container} color={backgroundColor}>
         <div className={styles.text}>
@@ -121,6 +134,7 @@ export class Graph extends Component {
           className={chartClass}
           data={data}
           options={chartConfig}
+          listener={listener}
           type={graphType === 'bar' ? 'Bar' : 'Line'}
         />
       </WidgetBox>
