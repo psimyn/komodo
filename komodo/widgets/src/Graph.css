@@ -60,7 +60,8 @@
 .stacked :global(.ct-series-a .ct-area) {
   fill: #3298DB;
 }
-.container :global(.ct-series-a .ct-line) {
+.container :global(.ct-series-a .ct-line),
+.container :global(.ct-series-a .ct-bar) {
   stroke: #3298DB;
 }
 .legend :global(.ct-series-0:before) {
@@ -71,7 +72,8 @@
 .stacked :global(.ct-series-b .ct-area) {
   fill: #F39C12;
 }
-.container :global(.ct-series-b .ct-line) {
+.container :global(.ct-series-b .ct-line),
+.container :global(.ct-series-b .ct-bar) {
   stroke: #F39C12;
 }
 .legend :global(.ct-series-1:before) {
@@ -82,7 +84,8 @@
 .stacked :global(.ct-series-c .ct-area) {
   fill: #E74C3C;
 }
-.container :global(.ct-series-c .ct-line) {
+.container :global(.ct-series-c .ct-line),
+.container :global(.ct-series-c .ct-bar) {
   stroke: #E74C3C;
 }
 .legend :global(.ct-series-2:before) {
@@ -93,7 +96,8 @@
 .stacked :global(.ct-series-d .ct-area) {
   fill: #27AE60;
 }
-.container :global(.ct-series-d .ct-line) {
+.container :global(.ct-series-d .ct-line),
+.container :global(.ct-series-d .ct-bar) {
   stroke: #27AE60;
 }
 .legend :global(.ct-series-3:before) {
@@ -104,7 +108,8 @@
 .stacked :global(.ct-series-e .ct-area) {
   fill: #8E44AD;
 }
-.container :global(.ct-series-e .ct-line) {
+.container :global(.ct-series-e .ct-line),
+.container :global(.ct-series-e .ct-bar) {
   stroke: #8E44AD;
 }
 .legend :global(.ct-series-4:before) {
@@ -115,7 +120,8 @@
 .stacked :global(.ct-series-f .ct-area) {
   fill: #3A5A7A;
 }
-.container :global(.ct-series-f .ct-line) {
+.container :global(.ct-series-f .ct-line),
+.container :global(.ct-series-f .ct-bar) {
   stroke: #3A5A7A;
 }
 .legend :global(.ct-series-5:before) {

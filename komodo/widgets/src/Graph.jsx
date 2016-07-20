@@ -15,7 +15,7 @@ export class Graph extends Component {
   }
 
   render() {
-    const {area, backgroundColor, suffix, title, min, max, stack, summaryMethod, legend} = this.props;
+    const {graphType, backgroundColor, suffix, title, min, max, stack, summaryMethod, legend} = this.props;
     let data = this.props.data;
 
     const chartConfig = {
@@ -33,7 +33,8 @@ export class Graph extends Component {
       high: max,
       height: legend ? 310 : 340,
       showPoint: false,
-      showArea: area,
+      showArea: graphType === 'area',
+      stackBars: stack,
       fullWidth: true,
       chartPadding: {
         top: 0,
@@ -63,8 +64,8 @@ export class Graph extends Component {
       ];
     }
 
-    let chartClass = 'ct-octave';
-    if (stack) {
+    // Manually stack the data points for the Line and Area charts.
+    if (stack && graphType !== 'bar') {
       const zipped = data.series[0].data.map((series, i) => {
         return data.series.map(array => array.data[i])
       });
@@ -85,10 +86,14 @@ export class Graph extends Component {
       }
     }
 
-    if (area) {
+    // Show/hide the area under the line charts
+    let chartClass = 'ct-octave';
+    if (graphType === 'area') {
       chartClass += ' ' + styles.stacked
     }
 
+
+    // The number to display. Either displayedValue or summaryMethod.
     let displayedValue = data.value;
     if (!displayedValue && summaryMethod) {
       if (summaryMethod == 'maxLast') {
@@ -112,7 +117,12 @@ export class Graph extends Component {
           <div className={styles.value}>{displayedValue}{suffix}</div>
         </div>
 
-        <ChartistGraph className={chartClass} data={data} options={chartConfig} type="Line" />
+        <ChartistGraph
+          className={chartClass}
+          data={data}
+          options={chartConfig}
+          type={graphType === 'bar' ? 'Bar' : 'Line'}
+        />
       </WidgetBox>
     );
   }
@@ -132,7 +142,7 @@ Graph.propTypes = {
   title: PropTypes.string,
   backgroundColor: PropTypes.string,
   suffix: PropTypes.string,
-  area: PropTypes.bool,
+  graphType: PropTypes.oneOf(['line', 'area', 'bar']),
   stack: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,
@@ -141,10 +151,10 @@ Graph.propTypes = {
 };
 
 Graph.defaultProps = {
-  area: false,
   legend: false,
   suffix: '',
   title: '',
+  graphType: 'line',
   backgroundColor: '#2c3e50',
   min: 0,
   summaryMethod: 'maxLast',

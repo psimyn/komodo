@@ -42,21 +42,38 @@ dashboards:
         data: random.graph
         options:
           title: Lines
+      - type: Graph
+        data: random.graph
+        options:
+          title: With Legend
           legend: true
       - type: Graph
         data: random.graph
         options:
           title: Area
           legend: true
-          area: true
+          graphType: area
       - type: Graph
         data: random.graph
         options:
           title: Stacked area
           legend: true
           stack: true
-          area: true
+          graphType: area
           summaryMethod: sumLast
+      - type: Graph
+        data: random.graph
+        options:
+          title: Bar graph
+          legend: true
+          graphType: bar
+      - type: Graph
+        data: random.graph
+        options:
+          title: Bar graph stacked
+          legend: true
+          graphType: bar
+          stack: true
 
 
 checks:
