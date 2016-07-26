@@ -28,6 +28,9 @@
   z-index: 1;
   list-style-type: none;
   padding-left: 0;
+  width: 100%;
+  overflow-x: hidden;
+  white-space: nowrap;
 }
 
 .legend li {
@@ -36,6 +39,7 @@
   margin-bottom: 3px;
   display: inline-block;
   margin-left: 10px;
+  color: white;
 }
 
 .legend li:before {
