@@ -42,6 +42,7 @@ dashboards:
         data: random.graph
         options:
           title: Lines
+          width: 2
       - type: Graph
         data: random.graph
         options:

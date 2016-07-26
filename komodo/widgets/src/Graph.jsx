@@ -124,7 +124,7 @@ export class Graph extends Component {
     };
 
     return (
-      <WidgetBox className={styles.container} color={backgroundColor}>
+      <WidgetBox className={styles.container} color={backgroundColor} width={this.props.width}>
         <div className={styles.text}>
           <div className={styles.title}>{title}</div>
           <div className={styles.value}>{displayedValue}{suffix}</div>

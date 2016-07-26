@@ -5,6 +5,7 @@ export default class WidgetBox extends Component {
   render() {
     const style = {
       backgroundColor: this.props.color,
+      minWidth: (370 * this.props.width) + 'px'
     };
     let className = styles.widget;
     if (this.props.className) {
@@ -21,4 +22,9 @@ WidgetBox.propTypes = {
   ]),
   color: PropTypes.string,
   className: PropTypes.string,
+  width: PropTypes.number,
+};
+
+WidgetBox.defaultProps = {
+  width: 1,
 };
