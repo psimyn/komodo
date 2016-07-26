@@ -19,7 +19,10 @@ class RandomNumbers(CheckBase):
             'labels': [i for i in range(10)],
             'series': [
                 { 'name': 'one', 'data': [random.randint(1, 100) for _ in range(10)] },
-                { 'name': 'two', 'data': [random.randint(1, 100) for _ in range(10)] }
+                { 'name': 'two', 'data': [random.randint(1, 100) for _ in range(10)] },
+                { 'name': 'three', 'data': [random.randint(1, 100) for _ in range(10)] },
+                { 'name': 'four', 'data': [random.randint(1, 100) for _ in range(10)] },
+                { 'name': 'six', 'data': [random.randint(1, 100) for _ in range(10)] }
             ],
         }
 
