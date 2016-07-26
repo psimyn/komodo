@@ -53,15 +53,21 @@
   border-radius: 2px;
 }
 
+.stack.area .legend {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
 .container :global(.ct-area) {
   fill-opacity: 0;
 }
 
-.stacked :global(.ct-area) {
+.area :global(.ct-area) {
   fill-opacity: 1;
 }
 
-.stacked :global(.ct-series-a .ct-area) {
+.area :global(.ct-series-a .ct-area) {
   fill: #3298DB;
 }
 .container :global(.ct-series-a .ct-line),
@@ -73,7 +79,7 @@
   border-color: #3298DB;
 }
 
-.stacked :global(.ct-series-b .ct-area) {
+.area :global(.ct-series-b .ct-area) {
   fill: #F39C12;
 }
 .container :global(.ct-series-b .ct-line),
@@ -85,7 +91,7 @@
   border-color: #F39C12;
 }
 
-.stacked :global(.ct-series-c .ct-area) {
+.area :global(.ct-series-c .ct-area) {
   fill: #E74C3C;
 }
 .container :global(.ct-series-c .ct-line),
@@ -97,7 +103,7 @@
   border-color: #E74C3C;
 }
 
-.stacked :global(.ct-series-d .ct-area) {
+.area :global(.ct-series-d .ct-area) {
   fill: #27AE60;
 }
 .container :global(.ct-series-d .ct-line),
@@ -109,7 +115,7 @@
   border-color: #27AE60;
 }
 
-.stacked :global(.ct-series-e .ct-area) {
+.area :global(.ct-series-e .ct-area) {
   fill: #8E44AD;
 }
 .container :global(.ct-series-e .ct-line),
@@ -121,7 +127,7 @@
   border-color: #8E44AD;
 }
 
-.stacked :global(.ct-series-f .ct-area) {
+.area :global(.ct-series-f .ct-area) {
   fill: #3A5A7A;
 }
 .container :global(.ct-series-f .ct-line),
@@ -136,7 +142,7 @@
 .container :global(.ct-series .ct-line) {
   stroke-width: 5px;
 }
-.stacked :global(.ct-series .ct-line) {
+.area :global(.ct-series .ct-line) {
   stroke: #000;
   stroke-width: 2px;
 }

@@ -89,9 +89,12 @@ export class Graph extends Component {
     // Show/hide the area under the line charts
     let chartClass = 'ct-octave';
     if (graphType === 'area') {
-      chartClass += ' ' + styles.stacked
+      chartClass += ' ' + styles.area
     }
 
+    if (stack) {
+      chartClass += ' ' + styles.stack
+    }
 
     // The number to display. Either data.value or summaryMethod.
     let displayedValue = data.value;
