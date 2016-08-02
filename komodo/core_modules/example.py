@@ -46,3 +46,36 @@ class RandomStatus(CheckBase):
             }
             for i in range(8)
         ]
+
+class FakePerformance(CheckBase):
+    def __init__(self):
+        self.conf = (
+            ('Python', 30, 70),
+            ('Database', 5, 50),
+            ('Redis', 1, 5),
+            ('External', 5, 10),
+        )
+        self.data = [
+            {
+                name: random.randint(lower, upper)
+                for name, lower, upper in self.conf
+            }
+            for _ in range(30)
+        ]
+        self.offset = 0
+
+    def register_checks(self):
+        yield '* * * * *', self.update_data
+
+    def update_data(self, time):
+        self.offset = (self.offset + 1) % 30
+        yield 'graph', {
+            'labels': [i for i in range(30)],
+            'series': [
+                {
+                    'name': name,
+                    'data': [self.data[o % 30][name] for o in range(self.offset, self.offset + 30)],
+                }
+                for name, _, _ in self.conf
+            ]
+        }

@@ -55,7 +55,7 @@ dashboards:
           legend: true
           graphType: area
       - type: Graph
-        data: random.graph
+        data: perf.graph
         options:
           title: Stacked area
           legend: true
@@ -82,3 +82,5 @@ checks:
     import_path: komodo.core_modules.example:RandomNumbers
   statuses:
     import_path: komodo.core_modules.example:RandomStatus
+  perf:
+    import_path: komodo.core_modules.example:FakePerformance
