@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {findDOMNode} from 'react-dom';
 import styles from './Graph.css';
 import {WidgetBox} from 'komodo';
 import ChartistGraph from 'react-chartist';
@@ -8,6 +9,14 @@ import Chartist from 'chartist';
 require('style-loader!raw!chartist/dist/chartist.min.css');
 require('chartist-plugin-legend');
 
+const colors = {
+  blue: '#3298DB',
+  yellow: '#F39C12',
+  purple: '#8E44AD',
+  green: '#27AE60',
+  orange: '#E74C3C',
+  navy: '#3A5A7A',
+}
 
 export class Graph extends Component {
   constructor(props) {
@@ -60,15 +69,29 @@ export class Graph extends Component {
       chartConfig.plugins = [
         Chartist.plugins.legend({
           className: styles.legend,
+          clickable: false,
         })
       ];
     }
 
+
+    // Show/hide the area under the line charts
+    let chartClass = 'ct-octave ';
+    if (graphType === 'area') {
+      chartClass += ' ' + styles.area
+    }
+
+    if (stack) {
+      chartClass += ' ' + styles.stack
+    }
+
     // Manually stack the data points for the Line and Area charts.
-    if (stack && graphType !== 'bar') {
+    if (graphType !== 'bar') {
       const zipped = data.series[0].data.map((series, i) => {
         return data.series.map(array => array.data[i])
       });
+
+      chartClass += ' ct-line'
 
       const series = data.series.map((series, seriesNumber) => {
         return {
@@ -84,16 +107,6 @@ export class Graph extends Component {
       if (chartConfig.high == undefined) {
         chartConfig.high = Math.max(...data.series.map(series => Math.max(series.data)));
       }
-    }
-
-    // Show/hide the area under the line charts
-    let chartClass = 'ct-octave';
-    if (graphType === 'area') {
-      chartClass += ' ' + styles.area
-    }
-
-    if (stack) {
-      chartClass += ' ' + styles.stack
     }
 
     // The number to display. Either data.value or summaryMethod.
@@ -113,21 +126,61 @@ export class Graph extends Component {
       }
     }
 
+    let seriesLength = data.series.length - 1
+
     // Set size of the bars
     let listener = {
       draw: (data) => {
+        let fill
         if (data.type === 'bar') {
           let numPoints = data.series.data.length * (stack ? 1 : this.props.data.series.length);
-          const width = Math.round(100.0 / numPoints);
+          const width = Math.round(100.0 / numPoints)
+          const index = data.seriesIndex
+          const colorName = Object.keys(colors)[index]
+          fill = colors[colorName]
           data.element.attr({
-            style: `stroke-width: ${width}%`,
+            style: `stroke-width: ${width}%; stroke: ${fill}`,
           })
+        } else {
+          const index = seriesLength - data.seriesIndex
+          const colorName = Object.keys(colors)[index]
+          fill = colors[colorName]
+
+          const area = data.group.querySelector('.ct-area')
+          if (area) {
+            area.attr({
+              style: `fill: ${fill}`,
+            })
+          }
+
+          if (graphType !== 'area') {
+            const line = data.group.querySelector('.ct-line:only-child')
+            line && line.attr({
+              style: `stroke: ${fill}`,
+            })
+          }
+        }
+
+        const li = findDOMNode(this.refs.widget).querySelector(`.ct-legend li:nth-child(${data.seriesIndex + 1})`)
+        if (li) {
+          const swatch = li.querySelector('span') || document.createElement('span')
+          swatch.style.cssText = `
+            background: ${fill};
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+            margin-right: 0.5em;
+            display: inline-block;
+          `
+          if (!li.querySelector('span')) {
+            li.insertBefore(swatch, li.childNodes[0])
+          }
         }
       }
-    };
+    }
 
     return (
-      <WidgetBox className={styles.container} color={backgroundColor} width={this.props.width}>
+      <WidgetBox ref="widget" className={styles.container} color={backgroundColor} width={this.props.width}>
         <div className={styles.text}>
           <div className={styles.title}>{title}</div>
           <div className={styles.value}>{displayedValue}{suffix}</div>
@@ -141,7 +194,7 @@ export class Graph extends Component {
           type={graphType === 'bar' ? 'Bar' : 'Line'}
         />
       </WidgetBox>
-    );
+    )
   }
 }
 
